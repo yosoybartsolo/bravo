@@ -6,6 +6,9 @@ const config = {
     "Escuelita Starter is a template to start creating your own projects FAST",
   // REQUIRED (no https://, not trialing slash at the end, just the naked domain)
   domainName: "escuelitamaker.com",
+  email: {
+    supportEmail: "escuelitamaker@gmail.com",
+  },
   socials: {
     twitter: "https://twitter.com/escuelitamaker",
     youtube: "https://www.youtube.com/@escuelitamaker",

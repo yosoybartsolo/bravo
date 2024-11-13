@@ -1,12 +1,21 @@
 import config from "@/config";
+
+const navItems = [
+  { label: "About Us", href: "/about" },
+  { label: "Contact", href: "/contact" },
+  { label: "Terms of Service", href: "/tos" },
+  { label: "Privacy Policy", href: "/privacy" },
+];
+
 const Footer = () => {
   return (
     <footer className="footer footer-center bg-base-200 text-base-content rounded p-10">
       <nav className="grid grid-flow-col gap-4">
-        <a className="link link-hover">About us</a>
-        <a className="link link-hover">Contact</a>
-        <a className="link link-hover">Terms of Service</a>
-        <a className="link link-hover">Privacy Policy</a>
+        {navItems.map((item) => (
+          <a key={item.href} href={item.href} className="link link-hover">
+            {item.label}
+          </a>
+        ))}
       </nav>
       <nav>
         <div className="grid grid-flow-col gap-4">
