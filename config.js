@@ -1,5 +1,3 @@
-import themes from "daisyui/src/theming/themes";
-
 const config = {
   // REQUIRED
   appName: "Escuelita Starter",
