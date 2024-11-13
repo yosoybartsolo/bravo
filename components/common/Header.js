@@ -4,6 +4,7 @@ import Link from "next/link";
 const navItems = [
   { label: "Faqs", href: "/faqs" },
   { label: "Pricing", href: "/pricing" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const Header = () => {
