@@ -1,9 +1,12 @@
 import Image from "next/image";
-import Hero from "@/components/Hero";
+import Hero from "@/components/landing/Hero";
+import Pricing from "@/components/landing/Pricing";
+import FAQ from "@/components/landing/FAQ";
 export default function Home() {
   return (
-    <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start w-full">
+    <main className="flex flex-col w-full">
       <Hero />
+      <Pricing />
     </main>
   );
 }
