@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form";
 import { Input, TextArea, ButtonSubmit } from "@/components/forms/fields";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const Contact = () => {
   const {
@@ -19,8 +20,10 @@ const Contact = () => {
     try {
       console.log("Form submitted, do whatever you want here:");
       console.log("Your Data: =>", data);
+      toast.success("Form submitted successfully");
     } catch (error) {
       console.error("Error submitting form:", error);
+      toast.error("Error submitting form");
     } finally {
       setIsLoading(false);
     }
