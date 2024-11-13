@@ -6,6 +6,15 @@ const config = {
     "Escuelita Starter is a template to start creating your own projects FAST",
   // REQUIRED (no https://, not trialing slash at the end, just the naked domain)
   domainName: "escuelitamaker.com",
+  socials: {
+    twitter: "https://twitter.com/escuelitamaker",
+    youtube: "https://www.youtube.com/@escuelitamaker",
+    facebook: "https://www.facebook.com/escuelitamaker",
+    instagram: "https://www.instagram.com/escuelitamaker",
+    linkedin: "https://www.linkedin.com/company/escuelitamaker",
+    tiktok: "https://www.tiktok.com/@escuelita.maker",
+    github: "https://github.com/escuelitamaker",
+  },
   stripe: {
     // Create multiple plans in your Stripe dashboard, then add them here. You can add as many plans as you want, just make sure to add the priceId
     plans: [
