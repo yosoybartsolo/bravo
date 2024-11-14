@@ -49,17 +49,15 @@ export default function Dashboard() {
                       <th>Name</th>
                       <th>Email</th>
                       <th>Created At</th>
-                      <th>Last Updated</th>
                       <th>Last Login</th>
                     </tr>
                   </thead>
                   <tbody>
                     {users.map((user) => (
-                      <tr key={user._id}>
+                      <tr key={user.id}>
                         <td>{user.name}</td>
                         <td>{user.email}</td>
                         <td>{formatDate(user.createdAt)}</td>
-                        <td>{formatDate(user.updatedAt)}</td>
                         <td>{formatDate(user.lastLogin)}</td>
                       </tr>
                     ))}
