@@ -1,10 +1,9 @@
 import localFont from "next/font/local";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
-import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import connectDB from "@/libs/mongoose";
-import MongoDBStatus from "@/components/MongoDBStatus";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,6 +27,7 @@ export default async function RootLayout({ children }) {
   try {
     await connectDB();
     isConnected = true;
+    console.info("MongoDB connected successfully!");
   } catch (error) {
     console.error("MongoDB connection error:", error);
     isConnected = false;
@@ -39,7 +39,6 @@ export default async function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Toaster position="bottom-center" />
-        <MongoDBStatus isConnected={isConnected} />
         <Header />
         {children}
         <Footer />
