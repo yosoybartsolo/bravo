@@ -43,6 +43,10 @@ const userSchema = mongoose.Schema(
       default: "user", // Set default role
       required: true,
     },
+    lastLogin: {
+      type: Date,
+      default: null,
+    },
   },
   {
     timestamps: true,
