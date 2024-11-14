@@ -53,7 +53,9 @@ const Header = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <button className="btn btn-primary">Get started</button>
+        <Link className="btn btn-primary" href={config.auth.loginUrl}>
+          Sign In
+        </Link>
       </div>
     </div>
   );

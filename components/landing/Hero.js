@@ -1,4 +1,3 @@
-import Image from "next/image";
 import config from "@/config";
 
 const Hero = () => {
@@ -16,10 +15,10 @@ const Hero = () => {
             <div className="mx-auto mt-5 max-w-md sm:flex sm:justify-center md:mt-8">
               <div className="rounded-md shadow">
                 <a
-                  href="#"
+                  href={config.auth.loginUrl}
                   className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary px-8 py-3 text-base font-medium text-white hover:bg-primary-focus md:px-10 md:py-4 md:text-lg"
                 >
-                  Get started
+                  Get Started
                 </a>
               </div>
             </div>
