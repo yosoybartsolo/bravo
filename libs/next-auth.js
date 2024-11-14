@@ -30,8 +30,8 @@ export const authOptions = {
   ...(connectMongo && { adapter: MongoDBAdapter(connectMongo) }),
 
   callbacks: {
-    jwt: async ({ token, user }) => {
-      if (user) {
+    jwt: async ({ token, user, account, profile }) => {
+      if (account && user) {
         token.role = user.role;
       }
       return token;

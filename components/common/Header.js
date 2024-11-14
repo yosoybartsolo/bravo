@@ -1,5 +1,8 @@
+"use client";
 import config from "@/config";
 import Link from "next/link";
+import { useSession, signOut } from "next-auth/react";
+import Image from "next/image";
 
 const navItems = [
   { label: "Faqs", href: "/faqs" },
@@ -8,6 +11,12 @@ const navItems = [
 ];
 
 const Header = () => {
+  const { data: session } = useSession();
+
+  const handleSignOut = async () => {
+    await signOut({ callbackUrl: "/" });
+  };
+
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -53,9 +62,53 @@ const Header = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <Link className="btn btn-primary" href={config.auth.loginUrl}>
-          Sign In
-        </Link>
+        {session ? (
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <Image
+                  alt="User avatar"
+                  src={session.user?.image || "/default-avatar.png"}
+                  width={40}
+                  height={40}
+                  className="rounded-full"
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li className="menu-title px-4 py-2">
+                <span className="font-semibold">
+                  Welcome, {session.user?.name}
+                </span>
+              </li>
+
+              {session.user?.role === "admin" && (
+                <li>
+                  <Link href="/admin/dashboard">Admin Dashboard</Link>
+                </li>
+              )}
+
+              <li>
+                <Link href="/dashboard">Dashboard</Link>
+              </li>
+
+              <li>
+                <button onClick={handleSignOut}>Sign Out</button>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <Link className="btn btn-primary" href={config.auth.loginUrl}>
+            Sign In
+          </Link>
+        )}
       </div>
     </div>
   );

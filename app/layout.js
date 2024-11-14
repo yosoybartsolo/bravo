@@ -3,8 +3,8 @@ import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import "./globals.css";
 import connectDB from "@/libs/mongoose";
-import { Toaster } from "react-hot-toast";
 import config from "@/config";
+import { NextAuthProvider } from "@/components/NextAuthProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,10 +35,11 @@ export default async function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Toaster position="bottom-center" />
-        <Header />
-        {children}
-        <Footer />
+        <NextAuthProvider>
+          <Header />
+          {children}
+          <Footer />
+        </NextAuthProvider>
       </body>
     </html>
   );
