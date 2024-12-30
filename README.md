@@ -3,7 +3,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 ## Getting Started
 
 First, run the development server:
-use yarn 4.5.3
+use yarn  1.22.22
 it uses next 14
 
 ```bash
