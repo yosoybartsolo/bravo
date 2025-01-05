@@ -25,11 +25,11 @@ export default function EditUserPage({ params }) {
           setUserData(response);
         } else {
           console.error("No data in response");
-          setError("Error al cargar los datos del usuario");
+          setError("Error loading user data");
         }
       } catch (error) {
         console.error("Error fetching user:", error);
-        setError(error.response?.data?.error || "Error al cargar el usuario");
+        setError(error.response?.data?.error || "Error loading user");
         if (error.response?.status === 401) {
           router.push("/auth/signin");
         }
@@ -54,7 +54,7 @@ export default function EditUserPage({ params }) {
       router.refresh();
     } catch (error) {
       console.error("Error updating user:", error);
-      setError(error.response?.data?.error || "Error al actualizar el usuario");
+      setError(error.response?.data?.error || "Error updating user");
     } finally {
       setSaving(false);
     }
@@ -72,7 +72,7 @@ export default function EditUserPage({ params }) {
     return (
       <div className="min-h-screen p-8 flex items-center justify-center">
         <div className="alert alert-error">
-          <span>No se pudo cargar la información del usuario</span>
+          <span>Could not load user information</span>
         </div>
       </div>
     );
@@ -85,10 +85,8 @@ export default function EditUserPage({ params }) {
           <div className="card-body">
             <div className="flex justify-between items-center pb-4">
               <div>
-                <h1 className="text-3xl font-bold">Editar Usuario ✏️</h1>
-                <p className="text-gray-600">
-                  Modificar información del usuario
-                </p>
+                <h1 className="text-3xl font-bold">Edit User ✏️</h1>
+                <p className="text-gray-600">Modify user information</p>
               </div>
             </div>
 

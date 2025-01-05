@@ -15,13 +15,13 @@ export async function GET(req, { params }) {
 
     if (!session?.user || session.user.role !== "admin") {
       console.log("❌ Unauthorized access attempt");
-      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const { id } = params;
     if (!id) {
       return NextResponse.json(
-        { error: "ID de usuario requerido" },
+        { error: "User ID is required" },
         { status: 400 }
       );
     }
@@ -35,20 +35,14 @@ export async function GET(req, { params }) {
 
     if (!user) {
       console.log("❌ User not found:", id);
-      return NextResponse.json(
-        { error: "Usuario no encontrado" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     console.log("✅ User found:", user._id);
     return NextResponse.json(user);
   } catch (error) {
     console.error("❌ Error fetching user:", error);
-    return NextResponse.json(
-      { error: "Error al obtener usuario" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Error fetching user" }, { status: 500 });
   }
 }
 
@@ -60,13 +54,13 @@ export async function PUT(req, { params }) {
 
     if (!session?.user || session.user.role !== "admin") {
       console.log("❌ Unauthorized access attempt");
-      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const { id } = params;
     if (!id) {
       return NextResponse.json(
-        { error: "ID de usuario requerido" },
+        { error: "User ID is required" },
         { status: 400 }
       );
     }
@@ -74,20 +68,17 @@ export async function PUT(req, { params }) {
     const body = await req.json();
     const { name, role } = body;
 
-    // Validaciones básicas
+    // Basic validations
     if (!name) {
       console.log("❌ Missing required fields");
-      return NextResponse.json(
-        { error: "Nombre es requerido" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Name is required" }, { status: 400 });
     }
 
-    // Validar rol
+    // Validate role
     const validRoles = ["user", "admin", "editor", "moderator"];
     if (role && !validRoles.includes(role)) {
       console.log("❌ Invalid role:", role);
-      return NextResponse.json({ error: "Rol no válido" }, { status: 400 });
+      return NextResponse.json({ error: "Invalid role" }, { status: 400 });
     }
 
     await connectMongo();
@@ -96,13 +87,10 @@ export async function PUT(req, { params }) {
     const user = await User.findById(id);
     if (!user) {
       console.log("❌ User not found:", id);
-      return NextResponse.json(
-        { error: "Usuario no encontrado" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    // Actualizar usuario
+    // Update user
     user.name = name;
     if (role) user.role = role;
     await user.save();
@@ -111,9 +99,6 @@ export async function PUT(req, { params }) {
     return NextResponse.json(user);
   } catch (error) {
     console.error("❌ Error updating user:", error);
-    return NextResponse.json(
-      { error: "Error al actualizar usuario" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Error updating user" }, { status: 500 });
   }
 }

@@ -15,7 +15,7 @@ export async function GET(req) {
 
     if (!session?.user || session.user.role !== "admin") {
       console.log("❌ Unauthorized access attempt");
-      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     await connectMongo();
@@ -59,7 +59,7 @@ export async function GET(req) {
   } catch (error) {
     console.error("❌ Error fetching users:", error);
     return NextResponse.json(
-      { error: "Error al obtener usuarios" },
+      { error: "Error fetching users" },
       { status: 500 }
     );
   }
@@ -73,42 +73,42 @@ export async function POST(req) {
 
     if (!session?.user || session.user.role !== "admin") {
       console.log("❌ Unauthorized access attempt");
-      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const body = await req.json();
     const { name, email, role } = body;
 
-    // Validaciones básicas
+    // Basic validations
     if (!name || !email) {
       console.log("❌ Missing required fields");
       return NextResponse.json(
-        { error: "Nombre y email son requeridos" },
+        { error: "Name and email are required" },
         { status: 400 }
       );
     }
 
-    // Validar rol
+    // Validate role
     const validRoles = ["user", "admin", "editor", "moderator"];
     if (role && !validRoles.includes(role)) {
       console.log("❌ Invalid role:", role);
-      return NextResponse.json({ error: "Rol no válido" }, { status: 400 });
+      return NextResponse.json({ error: "Invalid role" }, { status: 400 });
     }
 
     await connectMongo();
     console.log("📡 MongoDB connected");
 
-    // Verificar si el email ya existe
+    // Check if email already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       console.log("❌ Email already exists:", email);
       return NextResponse.json(
-        { error: "El email ya está registrado" },
+        { error: "Email already registered" },
         { status: 400 }
       );
     }
 
-    // Crear el usuario
+    // Create user
     const user = await User.create({
       name,
       email,
@@ -119,9 +119,6 @@ export async function POST(req) {
     return NextResponse.json({ data: user });
   } catch (error) {
     console.error("❌ Error creating user:", error);
-    return NextResponse.json(
-      { error: "Error al crear usuario" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Error creating user" }, { status: 500 });
   }
 }

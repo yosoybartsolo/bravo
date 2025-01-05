@@ -35,7 +35,7 @@ export default function UserForm({
           },
   });
 
-  // Para debug - ver valores actuales del form
+  // For debug - see current form values
   const currentValues = watch();
   console.log("Current form values:", currentValues);
 
@@ -63,16 +63,16 @@ export default function UserForm({
 
       <div className="form-control">
         <label className="label">
-          <span className="label-text">Nombre</span>
+          <span className="label-text">Name</span>
         </label>
         <input
           type="text"
           className={`input input-bordered ${errors.name ? "input-error" : ""}`}
           {...register("name", {
-            required: "El nombre es requerido",
+            required: "Name is required",
             minLength: {
               value: 2,
-              message: "El nombre debe tener al menos 2 caracteres",
+              message: "Name must be at least 2 characters",
             },
           })}
         />
@@ -87,7 +87,7 @@ export default function UserForm({
 
       <div className="form-control">
         <label className="label">
-          <span className="label-text">Correo Electrónico</span>
+          <span className="label-text">Email</span>
         </label>
         <input
           type="email"
@@ -96,17 +96,17 @@ export default function UserForm({
           }`}
           disabled={mode === "edit"}
           {...register("email", {
-            required: mode === "create" ? "El correo es requerido" : false,
+            required: mode === "create" ? "Email is required" : false,
             pattern: {
               value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: "Correo electrónico inválido",
+              message: "Invalid email address",
             },
           })}
         />
         {mode === "edit" && (
           <label className="label">
             <span className="label-text-alt text-gray-500">
-              El correo electrónico no se puede modificar
+              Email cannot be modified
             </span>
           </label>
         )}
@@ -121,13 +121,13 @@ export default function UserForm({
 
       <div className="form-control">
         <label className="label">
-          <span className="label-text">Rol</span>
+          <span className="label-text">Role</span>
         </label>
         <select
           className={`select select-bordered ${
             errors.role ? "select-error" : ""
           }`}
-          {...register("role", { required: "El rol es requerido" })}
+          {...register("role", { required: "Role is required" })}
         >
           {roles.map((role) => (
             <option key={role} value={role}>
@@ -146,18 +146,18 @@ export default function UserForm({
 
       <div className="flex gap-4 justify-end">
         <Link href="/admin/dashboard/users" className="btn btn-ghost">
-          Cancelar
+          Cancel
         </Link>
         <button type="submit" className="btn btn-primary" disabled={isLoading}>
           {isLoading ? (
             <>
               <span className="loading loading-spinner loading-sm"></span>
-              {mode === "create" ? "Creando..." : "Guardando..."}
+              {mode === "create" ? "Creating..." : "Saving..."}
             </>
           ) : mode === "create" ? (
-            "Crear Usuario"
+            "Create User"
           ) : (
-            "Guardar Cambios"
+            "Save Changes"
           )}
         </button>
       </div>
