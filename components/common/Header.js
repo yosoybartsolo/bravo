@@ -1,8 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import config from "@/config";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
-import Image from "next/image";
 
 const navItems = [
   { label: "Faqs", href: "/faqs" },
@@ -70,9 +70,12 @@ const Header = () => {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <Image
+                <img
                   alt="User avatar"
-                  src={session.user?.image || "/default-avatar.png"}
+                  src={
+                    session.user?.image ||
+                    `https://api.dicebear.com/9.x/initials/svg?seed=${session.user?.name}?size=40`
+                  }
                   width={40}
                   height={40}
                   className="rounded-full"
