@@ -40,16 +40,52 @@ export async function POST(request) {
 
 		const data = await request.json();
 
+		// Logs para depuración
+		console.log("[POST /api/businesses] Datos recibidos para crear negocio:", {
+			hasSentDescription: "description" in data,
+			description: data.description,
+			descriptionType: typeof data.description,
+			descriptionLength: data.description ? data.description.length : 0,
+			allFields: Object.keys(data),
+		});
+
 		await connectDB();
 
-		const newBusiness = new Business({
+		// Asegurarse de que la descripción esté presente
+		const businessData = {
 			...data,
+			description: data.description !== undefined ? data.description : "",
 			userId: session.user.id,
 			createdAt: new Date(),
 			updatedAt: new Date(),
+		};
+
+		console.log("[POST /api/businesses] Datos preparados para guardar:", {
+			description: businessData.description,
+			descriptionType: typeof businessData.description,
 		});
 
+		const newBusiness = new Business(businessData);
+
+		// Verificar que los campos están presentes en el objeto
+		console.log(
+			"[POST /api/businesses] Campos del nuevo negocio antes de guardar:",
+			{
+				name: newBusiness.name,
+				description: newBusiness.description || "No presente",
+				address: newBusiness.address || "No presente",
+				email: newBusiness.email,
+				modelHasDescriptionField: "description" in newBusiness,
+			}
+		);
+
 		await newBusiness.save();
+
+		console.log("[POST /api/businesses] Negocio guardado en MongoDB:", {
+			id: newBusiness._id,
+			description: newBusiness.description || "No guardado",
+			allSavedFields: Object.keys(newBusiness.toObject()),
+		});
 
 		return NextResponse.json(newBusiness, { status: 201 });
 	} catch (error) {

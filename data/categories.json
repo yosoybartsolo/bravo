@@ -1,0 +1,42 @@
+[
+  {
+    "id": "restaurants",
+    "name": "Restaurantes",
+    "emoji": "🍽️"
+  },
+  {
+    "id": "services",
+    "name": "Servicios",
+    "emoji": "🛠️"
+  },
+  {
+    "id": "professionals",
+    "name": "Profesionales",
+    "emoji": "👨‍💼"
+  },
+  {
+    "id": "events",
+    "name": "Eventos",
+    "emoji": "🎉"
+  },
+  {
+    "id": "retail",
+    "name": "Tiendas",
+    "emoji": "🛍️"
+  },
+  {
+    "id": "beauty",
+    "name": "Belleza y Estética",
+    "emoji": "💇‍♀️"
+  },
+  {
+    "id": "healthcare",
+    "name": "Salud",
+    "emoji": "⚕️"
+  },
+  {
+    "id": "other",
+    "name": "Otros",
+    "emoji": "📦"
+  }
+] 

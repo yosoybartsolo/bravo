@@ -1,8 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 // Categorías de negocios disponibles
 const BUSINESS_CATEGORIES = [
@@ -29,14 +30,42 @@ const BusinessCard = ({ business, onEdit, onDelete }) => {
 		<div className="card bg-white shadow-md border border-yellow-100 hover:shadow-lg transition-all">
 			<div className="card-body">
 				<div className="flex justify-between items-start">
-					<h2 className="card-title text-amber-600">{business.name}</h2>
+					<div className="flex items-center gap-3">
+						{business.logoUrl ? (
+							<div className="avatar">
+								<div className="w-14 h-14 rounded-full overflow-hidden relative border border-yellow-200 flex-shrink-0">
+									<Image
+										src={business.logoUrl}
+										alt={`Logo de ${business.name}`}
+										fill
+										className="object-cover"
+									/>
+								</div>
+							</div>
+						) : (
+							<div className="avatar placeholder">
+								<div className="w-14 h-14 rounded-full bg-amber-100 text-amber-600 flex justify-center items-center flex-shrink-0">
+									<span className="text-lg font-bold">
+										{business.name.charAt(0)}
+									</span>
+								</div>
+							</div>
+						)}
+						<h2 className="card-title text-amber-600">{business.name}</h2>
+					</div>
 					<span className="badge bg-yellow-100 text-amber-600 border-yellow-200">
 						{BUSINESS_CATEGORIES.find((cat) => cat.id === business.category)
 							?.name || "Categoría"}
 					</span>
 				</div>
 
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+				{business.description && (
+					<p className="text-gray-600 mt-2 text-sm line-clamp-2">
+						{business.description}
+					</p>
+				)}
+
+				<div className="grid grid-cols-1 gap-3 mt-4">
 					<div className="flex items-center text-gray-600">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +78,7 @@ const BusinessCard = ({ business, onEdit, onDelete }) => {
 								clipRule="evenodd"
 							/>
 						</svg>
-						<span>{business.email}</span>
+						<span className="text-sm truncate">{business.email}</span>
 					</div>
 					<div className="flex items-center text-gray-600">
 						<svg
@@ -59,8 +88,38 @@ const BusinessCard = ({ business, onEdit, onDelete }) => {
 							fill="currentColor">
 							<path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
 						</svg>
-						<span>{business.whatsapp}</span>
+						<span className="text-sm truncate">{business.whatsapp}</span>
 					</div>
+
+					{business.address && (
+						<div className="flex items-start text-gray-600">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								className="h-5 w-5 mr-2 text-red-500 flex-shrink-0 mt-0.5"
+								viewBox="0 0 20 20"
+								fill="currentColor">
+								<path
+									fillRule="evenodd"
+									d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+									clipRule="evenodd"
+								/>
+							</svg>
+							<div className="flex flex-col">
+								<span className="text-sm leading-tight">
+									{business.address}
+								</span>
+								{business.googleMapsUrl && (
+									<a
+										href={business.googleMapsUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-xs text-blue-500 hover:text-blue-700 hover:underline mt-1">
+										Ver en Google Maps
+									</a>
+								)}
+							</div>
+						</div>
+					)}
 				</div>
 
 				<div className="flex mt-4 space-x-3">
@@ -101,14 +160,14 @@ const BusinessCard = ({ business, onEdit, onDelete }) => {
 							href={business.twitter}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="text-blue-400 hover:text-blue-500">
+							className="text-black hover:text-gray-700">
 							<svg
-								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="currentColor"
 								width="24"
 								height="24"
-								viewBox="0 0 24 24"
 								className="fill-current">
-								<path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+								<path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
 							</svg>
 						</a>
 					)}
@@ -144,18 +203,170 @@ const extractUsername = (url, platform) => {
 	return url;
 };
 
+// Componente de carga de imágenes
+const LogoUploader = ({ logo, setLogo, existingLogo }) => {
+	const [isUploading, setIsUploading] = useState(false);
+	const [previewUrl, setPreviewUrl] = useState(existingLogo || null);
+	const fileInputRef = useRef(null);
+
+	// Tamaño máximo: 4MB en bytes
+	const MAX_FILE_SIZE = 4 * 1024 * 1024;
+
+	const handleFileChange = async (event) => {
+		const file = event.target.files[0];
+		if (!file) return;
+
+		// Validar tipo de archivo
+		if (!file.type.startsWith("image/")) {
+			toast.error("El archivo debe ser una imagen (JPG, PNG, GIF)");
+			return;
+		}
+
+		// Validar tamaño del archivo
+		if (file.size > MAX_FILE_SIZE) {
+			toast.error("El tamaño de la imagen no debe exceder 4MB");
+			return;
+		}
+
+		// Crear preview
+		const fileReader = new FileReader();
+		fileReader.onload = (e) => {
+			setPreviewUrl(e.target.result);
+		};
+		fileReader.readAsDataURL(file);
+
+		setIsUploading(true);
+
+		// Crear FormData para enviar el archivo
+		const formData = new FormData();
+		formData.append("file", file);
+
+		try {
+			const response = await fetch("/api/upload", {
+				method: "POST",
+				body: formData,
+			});
+
+			if (!response.ok) {
+				const error = await response.json();
+				throw new Error(error.error || "Error al subir la imagen");
+			}
+
+			const result = await response.json();
+			setLogo({
+				url: result.url,
+				publicId: result.public_id,
+			});
+			toast.success("Logo subido correctamente");
+		} catch (error) {
+			console.error("Error al subir logo:", error);
+			toast.error(error.message || "Error al subir la imagen");
+			setPreviewUrl(existingLogo);
+		} finally {
+			setIsUploading(false);
+		}
+	};
+
+	const handleRemoveLogo = () => {
+		setPreviewUrl(null);
+		setLogo(null);
+		if (fileInputRef.current) {
+			fileInputRef.current.value = "";
+		}
+	};
+
+	return (
+		<div className="form-control">
+			<label className="label">
+				<span className="label-text text-gray-700">Logo del Negocio</span>
+			</label>
+			<div className="flex flex-col items-center">
+				{previewUrl ? (
+					<div className="relative mb-4">
+						<div className="w-32 h-32 rounded-full overflow-hidden relative border-2 border-yellow-200">
+							<Image
+								src={previewUrl}
+								alt="Vista previa del logo"
+								fill
+								className="object-cover"
+							/>
+						</div>
+						<button
+							type="button"
+							onClick={handleRemoveLogo}
+							className="btn btn-circle btn-xs absolute -top-1 -right-1 bg-red-100 text-red-700 border border-red-200 hover:bg-red-200">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								className="h-4 w-4"
+								viewBox="0 0 20 20"
+								fill="currentColor">
+								<path
+									fillRule="evenodd"
+									d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+									clipRule="evenodd"
+								/>
+							</svg>
+						</button>
+					</div>
+				) : (
+					<div className="w-32 h-32 rounded-full bg-yellow-50 border-2 border-dashed border-yellow-200 flex items-center justify-center mb-4">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							className="h-12 w-12 text-yellow-300"
+							viewBox="0 0 20 20"
+							fill="currentColor">
+							<path
+								fillRule="evenodd"
+								d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+								clipRule="evenodd"
+							/>
+						</svg>
+					</div>
+				)}
+				<div className="flex items-center justify-center w-full">
+					<label
+						className={`btn ${
+							isUploading ? "loading" : ""
+						} bg-yellow-100 hover:bg-yellow-200 text-amber-700 border border-yellow-200`}>
+						{isUploading
+							? "Subiendo..."
+							: previewUrl
+							? "Cambiar Logo"
+							: "Subir Logo"}
+						<input
+							type="file"
+							ref={fileInputRef}
+							className="hidden"
+							accept="image/*"
+							onChange={handleFileChange}
+							disabled={isUploading}
+						/>
+					</label>
+				</div>
+				<p className="text-xs text-gray-500 mt-2">
+					JPG, PNG o GIF. Máximo 4MB.
+				</p>
+			</div>
+		</div>
+	);
+};
+
 // Formulario para crear o editar un negocio
 const BusinessForm = ({ business, onSave, onCancel }) => {
 	// Procesar datos iniciales para extraer usernames de redes sociales si es un negocio existente
 	const initialData = business
 		? {
 				...business,
+				description: business.description || "",
 				instagram_username: extractUsername(business.instagram, "instagram"),
 				facebook_username: extractUsername(business.facebook, "facebook"),
 				twitter_username: extractUsername(business.twitter, "twitter"),
 		  }
 		: {
 				name: "",
+				description: "",
+				address: "",
+				googleMapsUrl: "",
 				whatsapp: "",
 				email: "",
 				instagram_username: "",
@@ -164,15 +375,46 @@ const BusinessForm = ({ business, onSave, onCancel }) => {
 				category: "",
 		  };
 
+	// Log para depuración: verificar qué datos iniciales recibe el formulario
+	console.log("Datos iniciales del formulario:", {
+		isEditing: !!business,
+		description: initialData.description || "No hay descripción",
+		businessId: business?._id || "nuevo negocio",
+	});
+
 	const [formData, setFormData] = useState(initialData);
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [logo, setLogo] = useState(
+		business?.logoUrl
+			? {
+					url: business.logoUrl,
+					publicId: business.cloudinaryPublicId,
+			  }
+			: null
+	);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
-		setFormData((prev) => ({
-			...prev,
-			[name]: value,
-		}));
+
+		// Log para campos importantes
+		if (name === "description") {
+			console.log(`Actualizando campo ${name} con valor:`, value);
+			console.log("Tipo de valor:", typeof value);
+		}
+
+		setFormData((prev) => {
+			const updated = {
+				...prev,
+				[name]: value,
+			};
+
+			// Log para verificar la actualización del estado
+			if (name === "description") {
+				console.log("Valor actualizado en formData:", updated.description);
+			}
+
+			return updated;
+		});
 	};
 
 	const handleSubmit = async (e) => {
@@ -180,9 +422,17 @@ const BusinessForm = ({ business, onSave, onCancel }) => {
 		setIsSubmitting(true);
 
 		try {
+			// Verificar que la descripción se esté capturando correctamente
+			console.log("Descripción antes de preparar datos:", formData.description);
+
 			// Construir URLs completas para redes sociales
 			const dataToSubmit = {
 				name: formData.name,
+				// Asegurarse de que la descripción se incluya correctamente, incluso si está vacía
+				description:
+					typeof formData.description === "string" ? formData.description : "",
+				address: formData.address || "",
+				googleMapsUrl: formData.googleMapsUrl || "",
 				whatsapp: formData.whatsapp,
 				email: formData.email,
 				category: formData.category,
@@ -197,12 +447,37 @@ const BusinessForm = ({ business, onSave, onCancel }) => {
 					: "",
 			};
 
+			// Añadir logo si existe
+			if (logo) {
+				dataToSubmit.logoUrl = logo.url;
+				dataToSubmit.cloudinaryPublicId = logo.publicId;
+			} else {
+				dataToSubmit.logoUrl = "";
+				dataToSubmit.cloudinaryPublicId = "";
+			}
+
 			// Si es una edición, incluir el ID
 			if (business?._id) {
 				dataToSubmit._id = business._id;
 			}
 
+			console.log("Datos a enviar a la API:", {
+				type: business ? "update" : "create",
+				description: dataToSubmit.description,
+				descriptionType: typeof dataToSubmit.description,
+				descriptionLength: dataToSubmit.description
+					? dataToSubmit.description.length
+					: 0,
+				businessId: business?._id || "nuevo negocio",
+			});
+
+			// Usar la función onSave heredada del componente padre
+			// en lugar de intentar actualizar directamente el estado de businesses
 			await onSave(dataToSubmit);
+
+			// El manejo de la respuesta y actualización del estado
+			// se realizará en el componente padre que tiene acceso a setBusinesses
+
 			toast.success(
 				business
 					? "Negocio actualizado correctamente"
@@ -239,6 +514,66 @@ const BusinessForm = ({ business, onSave, onCancel }) => {
 							required
 						/>
 					</div>
+
+					<div className="form-control">
+						<label className="label">
+							<span className="label-text text-gray-700">Descripción</span>
+						</label>
+						<textarea
+							name="description"
+							value={formData.description || ""}
+							onChange={handleChange}
+							onBlur={(e) =>
+								console.log("Valor al salir del campo:", e.target.value)
+							}
+							className="textarea textarea-bordered border-yellow-200 focus:border-amber-400 focus:ring focus:ring-amber-200 focus:ring-opacity-50 h-24"
+							maxLength="500"
+							placeholder="Describe brevemente tu negocio (máximo 500 caracteres)"></textarea>
+						<div className="text-xs text-right text-gray-500 mt-1">
+							{formData.description?.length || 0}/500
+						</div>
+					</div>
+
+					<div className="form-control">
+						<label className="label">
+							<span className="label-text text-gray-700">Dirección</span>
+						</label>
+						<input
+							type="text"
+							name="address"
+							value={formData.address || ""}
+							onChange={handleChange}
+							className="input input-bordered border-yellow-200 focus:border-amber-400 focus:ring focus:ring-amber-200 focus:ring-opacity-50"
+							placeholder="Dirección física del negocio"
+						/>
+					</div>
+
+					<div className="form-control">
+						<label className="label">
+							<span className="label-text text-gray-700">
+								URL de Google Maps
+							</span>
+						</label>
+						<input
+							type="url"
+							name="googleMapsUrl"
+							value={formData.googleMapsUrl || ""}
+							onChange={handleChange}
+							className="input input-bordered border-yellow-200 focus:border-amber-400 focus:ring focus:ring-amber-200 focus:ring-opacity-50"
+							placeholder="https://maps.google.com/..."
+						/>
+						<div className="text-xs text-gray-500 mt-1">
+							Pega aquí el enlace completo que obtienes al compartir la
+							ubicación desde Google Maps
+						</div>
+					</div>
+
+					{/* Componente de carga de logo */}
+					<LogoUploader
+						logo={logo}
+						setLogo={setLogo}
+						existingLogo={business?.logoUrl}
+					/>
 
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div className="form-control">
@@ -442,50 +777,77 @@ export default function Dashboard() {
 
 	// Guardar un nuevo negocio o actualizar uno existente
 	const handleSaveBusiness = async (businessData) => {
-		if (editingBusiness) {
-			// Actualizar negocio existente
-			const response = await fetch(`/api/businesses/${editingBusiness._id}`, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(businessData),
-			});
+		try {
+			if (editingBusiness) {
+				// Actualizar negocio existente
+				console.log("Actualizando negocio con datos:", {
+					id: editingBusiness._id,
+					description: businessData.description,
+				});
 
-			if (!response.ok) {
-				const errorData = await response.json();
-				throw new Error(errorData.error || "Error al actualizar el negocio");
+				const response = await fetch(`/api/businesses/${editingBusiness._id}`, {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(businessData),
+				});
+
+				if (!response.ok) {
+					const errorData = await response.json();
+					throw new Error(errorData.error || "Error al actualizar el negocio");
+				}
+
+				// Actualizar el estado local
+				const updatedBusiness = await response.json();
+				console.log("Negocio actualizado:", {
+					id: updatedBusiness._id,
+					description: updatedBusiness.description || "No presente",
+				});
+
+				setBusinesses(
+					businesses.map((b) =>
+						b._id === updatedBusiness._id ? updatedBusiness : b
+					)
+				);
+			} else {
+				// Crear nuevo negocio
+				console.log("Creando negocio con datos:", {
+					description: businessData.description,
+				});
+
+				const response = await fetch("/api/businesses", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(businessData),
+				});
+
+				if (!response.ok) {
+					const errorData = await response.json();
+					throw new Error(errorData.error || "Error al crear el negocio");
+				}
+
+				// Actualizar el estado local
+				const newBusiness = await response.json();
+				console.log("Negocio creado:", {
+					id: newBusiness._id,
+					description: newBusiness.description || "No presente",
+				});
+
+				setBusinesses([...businesses, newBusiness]);
 			}
 
-			// Actualizar el estado local
-			const updatedBusiness = await response.json();
-			setBusinesses(
-				businesses.map((b) =>
-					b._id === updatedBusiness._id ? updatedBusiness : b
-				)
-			);
-		} else {
-			// Crear nuevo negocio
-			const response = await fetch("/api/businesses", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(businessData),
-			});
+			setIsCreating(false);
+			setEditingBusiness(null);
 
-			if (!response.ok) {
-				const errorData = await response.json();
-				throw new Error(errorData.error || "Error al crear el negocio");
-			}
-
-			// Actualizar el estado local
-			const newBusiness = await response.json();
-			setBusinesses([...businesses, newBusiness]);
+			// Refrescar la lista de negocios para asegurarnos de tener datos actualizados
+			fetchBusinesses();
+		} catch (error) {
+			console.error("Error en handleSaveBusiness:", error);
+			throw error; // Propagar el error para que el componente hijo pueda manejarlo
 		}
-
-		setIsCreating(false);
-		setEditingBusiness(null);
 	};
 
 	// Eliminar un negocio

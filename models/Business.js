@@ -24,6 +24,27 @@ const BusinessSchema = new mongoose.Schema({
 		lowercase: true,
 		match: [/^\S+@\S+\.\S+$/, "Por favor ingrese un email válido"],
 	},
+	description: {
+		type: String,
+		trim: true,
+		maxlength: [500, "La descripción no puede tener más de 500 caracteres"],
+		default: "",
+	},
+	address: {
+		type: String,
+		trim: true,
+		default: "",
+		maxlength: [200, "La dirección no puede tener más de 200 caracteres"],
+	},
+	googleMapsUrl: {
+		type: String,
+		trim: true,
+		default: "",
+		maxlength: [
+			1000,
+			"La URL de Google Maps no puede tener más de 1000 caracteres",
+		],
+	},
 	category: {
 		type: String,
 		required: [true, "La categoría es obligatoria"],
@@ -40,6 +61,16 @@ const BusinessSchema = new mongoose.Schema({
 		default: "",
 	},
 	twitter: {
+		type: String,
+		trim: true,
+		default: "",
+	},
+	logoUrl: {
+		type: String,
+		trim: true,
+		default: "",
+	},
+	cloudinaryPublicId: {
 		type: String,
 		trim: true,
 		default: "",
