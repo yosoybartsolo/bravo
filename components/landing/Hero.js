@@ -160,17 +160,6 @@ const Hero = () => {
 								</button>
 							</form>
 
-							{/* Botón de diagnóstico (solo desarrollo) */}
-							{process.env.NODE_ENV !== "production" && (
-								<div className="mt-2 text-center">
-									<button
-										onClick={fetchDiagnosticInfo}
-										className="text-xs text-amber-200 underline">
-										Verificar BD
-									</button>
-								</div>
-							)}
-
 							{/* Información de diagnóstico */}
 							{showDiagnostic && diagnosticInfo && (
 								<div className="absolute w-full mt-2 bg-white rounded-xl shadow-lg p-4 max-h-96 overflow-y-auto z-50">
