@@ -41,7 +41,7 @@ const Header = () => {
 					</div>
 					<ul
 						tabIndex={0}
-						className="menu menu-sm dropdown-content bg-white rounded-box z-[1] mt-3 w-52 p-2 shadow-lg border border-yellow-100">
+						className="menu menu-sm dropdown-content bg-white rounded-box z-[50] mt-3 w-52 p-2 shadow-lg border border-yellow-100">
 						{navItems.map((item) => (
 							<li key={item.href}>
 								<Link
@@ -94,7 +94,7 @@ const Header = () => {
 						</div>
 						<ul
 							tabIndex={0}
-							className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-lg bg-white rounded-box w-52 border border-yellow-100">
+							className="menu menu-sm dropdown-content mt-3 z-[100] p-2 shadow-lg bg-white rounded-box w-52 border border-yellow-100">
 							<li className="menu-title px-4 py-2 bg-gradient-to-r from-yellow-50 to-white">
 								<span className="font-semibold text-amber-600">
 									Welcome, {session.user?.name}
