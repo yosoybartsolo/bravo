@@ -25,69 +25,61 @@ import config from "@/config";
 // Please write a simple Terms & Services for my site. Add the current date. Do not add or explain your reasoning. Answer:
 
 const TOS = () => {
-  return (
-    <main className="bg-base-100 w-full min-h-screen flex flex-col justify-center items-center">
-      <div className="p-5 max-w-2xl w-full">
-        <Link href="/" className="btn btn-ghost">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            className="w-5 h-5"
-          >
-            <path
-              fillRule="evenodd"
-              d="M15 10a.75.75 0 01-.75.75H7.612l2.158 1.96a.75.75 0 11-1.04 1.08l-3.5-3.25a.75.75 0 010-1.08l3.5-3.25a.75.75 0 111.04 1.08L7.612 9.25h6.638A.75.75 0 0115 10z"
-              clipRule="evenodd"
-            />
-          </svg>
-          Back
-        </Link>
-        <h1 className="text-3xl font-extrabold pb-6">
-          Terms and Conditions for {config.appName}
-        </h1>
+	return (
+		<main className="bg-base-100 w-full min-h-screen flex flex-col justify-center items-center">
+			<div className="p-5 max-w-2xl w-full">
+				<Link href="/" className="btn btn-ghost">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+						className="w-5 h-5">
+						<path
+							fillRule="evenodd"
+							d="M15 10a.75.75 0 01-.75.75H7.612l2.158 1.96a.75.75 0 11-1.04 1.08l-3.5-3.25a.75.75 0 010-1.08l3.5-3.25a.75.75 0 111.04 1.08L7.612 9.25h6.638A.75.75 0 0115 10z"
+							clipRule="evenodd"
+						/>
+					</svg>
+					Back
+				</Link>
+				<h1 className="text-3xl font-extrabold pb-6">
+					Terms and Conditions for {config.appName}
+				</h1>
 
-        <pre
-          className="leading-relaxed whitespace-pre-wrap"
-          style={{ fontFamily: "sans-serif" }}
-        >
-          {`Last Updated: January 15, 2024
+				<pre
+					className="leading-relaxed whitespace-pre-wrap"
+					style={{ fontFamily: "sans-serif" }}>
+					{`Términos y Condiciones de Servicio
+Última actualización: 10 de abril de 2025
 
-Welcome to Escuelita Starter!
+Bienvenido a Sección Latina (https://seccionlatina.org). Al utilizar este sitio, aceptas los siguientes términos y condiciones:
 
-These Terms of Service ("Terms") govern your use of the Escuelita Starter website at escuelitamaker.com ("Website") and the services provided by Escuelita Starter. By using our Website and services, you agree to these Terms.
+1. Descripción del Servicio
+Sección Latina es un directorio de emprendedores latinos en Texas. Los usuarios pueden registrar sus negocios en el directorio de manera gratuita. Nuestro único propósito es apoyar a la comunidad latina en Texas.
 
-1. Description of Escuelita Starter
+2. Propiedad del Contenido
+Los usuarios conservan los derechos sobre la información de sus negocios. Al subir contenido, autorizan a Sección Latina a mostrar dicha información en el sitio web.
 
-Escuelita Starter is a template to help you start creating your own projects faster and more efficiently.
+3. Información del Usuario
+Recopilamos nombre, correo electrónico e información de pago para fines de administración y contacto. También utilizamos cookies para mejorar la experiencia del usuario.
 
-2. Ownership and Usage Rights
+4. Privacidad
+Consulta nuestra Política de Privacidad para más detalles: https://seccionlatina.org/privacy-policy
 
-When you purchase a package from Escuelita Starter, you gain the right to download and use the code provided for creating applications. You own the code you create but do not have the right to resell it. We offer a full refund within 7 days of purchase, as specified in our refund policy.
+5. Cambios en los Términos
+Podemos actualizar estos Términos en cualquier momento. Notificaremos a los usuarios registrados por correo electrónico sobre cualquier cambio.
 
-3. User Data and Privacy
+6. Ley Aplicable
+Estos términos se rigen por las leyes de los Estados Unidos.
 
-We collect and store user data, including name, email, and payment information, as necessary to provide our services. For details on how we handle your data, please refer to our Privacy Policy at escuelitamaker.com/privacy-policy.
+7. Contacto
+Si tienes alguna pregunta, puedes escribirnos a: yosoybartsolo@gmail.com
 
-4. Non-Personal Data Collection
-
-We use web cookies to collect non-personal data for the purpose of improving our services and user experience.
-
-5. Governing Law
-
-These Terms are governed by the laws of Mexico.
-
-6. Updates to the Terms
-
-We may update these Terms from time to time. Users will be notified of any changes via email.
-
-For any questions or concerns regarding these Terms of Service, please contact us at ${config.email.supportEmail}.
-
-Thank you for using Escuelita Starter!`}
-        </pre>
-      </div>
-    </main>
-  );
+Gracias por ser parte de Sección Latina.`}
+				</pre>
+			</div>
+		</main>
+	);
 };
 
 export default TOS;

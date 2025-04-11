@@ -4,10 +4,10 @@ const config = {
 	// REQUIRED: a short description of your app for SEO tags (can be overwritten)
 	appDescription: "Directorio de emprendedores latinos en Texas ⭐️",
 	// REQUIRED (no https://, not trialing slash at the end, just the naked domain)
-	domainName: "escuelitamaker.com",
+	domainName: "seccionlatina.org",
 	email: {
-		supportEmail: "escuelitamaker@gmail.com",
-		noReplyEmail: "no-reply@escuelitamaker.com",
+		supportEmail: "yosoybartsolo@gmail.com",
+		noReplyEmail: "no-reply@seccionlatina.org",
 	},
 	socials: {
 		twitter: "https://twitter.com/escuelitamaker",
