@@ -1,7 +1,82 @@
+"use client";
 import config from "@/config";
 import Image from "next/image";
+import { useState, useEffect } from "react";
+import Link from "next/link";
 
 const Hero = () => {
+	const [searchQuery, setSearchQuery] = useState("");
+	const [searchResults, setSearchResults] = useState([]);
+	const [isSearching, setIsSearching] = useState(false);
+	const [error, setError] = useState(null);
+	const [hasSearched, setHasSearched] = useState(false);
+	const [diagnosticInfo, setDiagnosticInfo] = useState(null);
+	const [showDiagnostic, setShowDiagnostic] = useState(false);
+
+	// Limpiar resultados cuando se cambia la consulta
+	useEffect(() => {
+		if (searchQuery.trim() === "") {
+			setSearchResults([]);
+			setHasSearched(false);
+		}
+	}, [searchQuery]);
+
+	const handleSearch = async (e) => {
+		e.preventDefault();
+		const query = searchQuery.trim();
+		if (!query) return;
+
+		setIsSearching(true);
+		setError(null);
+		setHasSearched(true);
+
+		try {
+			console.log("[UI] Iniciando búsqueda para:", query);
+			const response = await fetch(
+				`/api/search?q=${encodeURIComponent(query)}`
+			);
+
+			if (!response.ok) {
+				throw new Error(`Error en la búsqueda: ${response.status}`);
+			}
+
+			const data = await response.json();
+			console.log("[UI] Resultados recibidos:", data);
+
+			if (!data.businesses) {
+				console.error("[UI] Datos de respuesta inválidos:", data);
+				throw new Error("Formato de respuesta inválido");
+			}
+
+			setSearchResults(data.businesses);
+			console.log("[UI] Total resultados:", data.businesses.length);
+		} catch (error) {
+			console.error("[UI] Error en la búsqueda:", error);
+			setError(
+				"Hubo un error al realizar la búsqueda. Por favor, intenta de nuevo."
+			);
+			setSearchResults([]);
+		} finally {
+			setIsSearching(false);
+		}
+	};
+
+	// Función para obtener información de diagnóstico
+	const fetchDiagnosticInfo = async () => {
+		try {
+			const response = await fetch("/api/debug-businesses");
+			if (!response.ok) {
+				throw new Error(`Error al obtener diagnóstico: ${response.status}`);
+			}
+			const data = await response.json();
+			setDiagnosticInfo(data);
+			setShowDiagnostic(true);
+		} catch (error) {
+			console.error("Error al obtener diagnóstico:", error);
+			setError("No se pudo obtener información de diagnóstico");
+		}
+	};
+
 	return (
 		<div className="relative overflow-hidden w-full min-h-[700px] flex items-center">
 			{/* Imagen de fondo con overlay */}
@@ -50,16 +125,22 @@ const Hero = () => {
 
 						{/* Barra de búsqueda */}
 						<div className="mt-10 max-w-xl relative">
-							<div className="relative">
+							<form onSubmit={handleSearch} className="relative">
 								<input
 									type="text"
+									value={searchQuery}
+									onChange={(e) => setSearchQuery(e.target.value)}
 									placeholder="Buscar negocios, servicios, productos..."
-									className="w-full pl-12 pr-4 py-4 bg-white/95 border-2 border-yellow-300 rounded-full shadow-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 text-gray-700"
+									className="w-full pl-12 pr-20 py-4 bg-white/95 border-2 border-yellow-300 rounded-full shadow-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 text-gray-700"
 								/>
 								<div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
-										className="h-6 w-6 text-amber-500"
+										className={`h-6 w-6 ${
+											isSearching
+												? "text-amber-300 animate-pulse"
+												: "text-amber-500"
+										}`}
 										fill="none"
 										viewBox="0 0 24 24"
 										stroke="currentColor">
@@ -71,7 +152,109 @@ const Hero = () => {
 										/>
 									</svg>
 								</div>
-							</div>
+								<button
+									type="submit"
+									disabled={isSearching || !searchQuery.trim()}
+									className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-yellow-400 to-amber-500 text-white px-4 py-2 rounded-full transition-all hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed">
+									{isSearching ? "Buscando..." : "Buscar"}
+								</button>
+							</form>
+
+							{/* Botón de diagnóstico (solo desarrollo) */}
+							{process.env.NODE_ENV !== "production" && (
+								<div className="mt-2 text-center">
+									<button
+										onClick={fetchDiagnosticInfo}
+										className="text-xs text-amber-200 underline">
+										Verificar BD
+									</button>
+								</div>
+							)}
+
+							{/* Información de diagnóstico */}
+							{showDiagnostic && diagnosticInfo && (
+								<div className="absolute w-full mt-2 bg-white rounded-xl shadow-lg p-4 max-h-96 overflow-y-auto z-50">
+									<h3 className="font-medium text-gray-800 mb-2">
+										Diagnóstico
+									</h3>
+									<p className="text-sm text-gray-600 mb-2">
+										{diagnosticInfo.message}
+									</p>
+									{diagnosticInfo.sample && diagnosticInfo.sample.length > 0 ? (
+										<div className="space-y-2">
+											<p className="text-sm font-medium">
+												Muestra de negocios:
+											</p>
+											{diagnosticInfo.sample.map((business) => (
+												<div
+													key={business._id}
+													className="p-2 bg-gray-50 rounded">
+													<p className="font-medium">{business.name}</p>
+													<p className="text-xs text-gray-500">
+														Categoría: {business.category} | Aprobado:{" "}
+														{business.isApproved ? "Sí" : "No"}
+													</p>
+												</div>
+											))}
+										</div>
+									) : (
+										<p className="text-sm text-red-500">
+											No hay negocios en la base de datos
+										</p>
+									)}
+									<div className="mt-3 text-right">
+										<button
+											onClick={() => setShowDiagnostic(false)}
+											className="text-xs text-amber-600 underline">
+											Cerrar
+										</button>
+									</div>
+								</div>
+							)}
+
+							{/* Resultados de búsqueda */}
+							{searchResults.length > 0 && !showDiagnostic && (
+								<div className="absolute w-full mt-2 bg-white rounded-xl shadow-lg p-4 max-h-96 overflow-y-auto z-50">
+									<div className="space-y-4">
+										{searchResults.map((business) => (
+											<Link
+												key={business._id}
+												href={`/business/${business._id}`}
+												className="block p-4 hover:bg-amber-50 rounded-lg transition-colors">
+												<h3 className="font-medium text-gray-800">
+													{business.name}
+												</h3>
+												<div className="text-sm text-gray-600">
+													<p>{business.category}</p>
+													{business.address && (
+														<p className="mt-1 text-amber-700">
+															📍 {business.address}
+														</p>
+													)}
+												</div>
+											</Link>
+										))}
+									</div>
+								</div>
+							)}
+
+							{searchResults.length === 0 &&
+								hasSearched &&
+								!isSearching &&
+								!error &&
+								!showDiagnostic && (
+									<div className="absolute w-full mt-2 bg-white rounded-xl shadow-lg p-4 z-50">
+										<p className="text-gray-600 text-center py-2">
+											No se encontraron resultados para "{searchQuery}"
+										</p>
+									</div>
+								)}
+
+							{error && (
+								<div className="mt-2 text-red-100 bg-red-500/20 p-3 rounded-lg">
+									{error}
+								</div>
+							)}
 						</div>
 
 						{/* Botones */}

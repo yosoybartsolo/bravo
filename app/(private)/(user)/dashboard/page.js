@@ -24,97 +24,234 @@ const SOCIAL_BASE_URLS = {
 	twitter: "https://twitter.com/",
 };
 
+// Estilos de animación personalizados
+const animationStyles = `
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fadeIn {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  
+  .animate-fadeInUp {
+    animation: fadeInUp 0.5s ease-out forwards;
+  }
+`;
+
 // Componente para mostrar un negocio individual con opción para editar
 const BusinessCard = ({ business, onEdit, onDelete }) => {
 	return (
-		<div className="card bg-white shadow-md border border-yellow-100 hover:shadow-lg transition-all">
-			<div className="card-body">
-				<div className="flex justify-between items-start">
-					<div className="flex items-center gap-3">
+		<div className="group relative bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 overflow-hidden border border-amber-100 transform hover:-translate-y-1">
+			{/* Elemento decorativo de fondo */}
+			<div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-amber-100 to-transparent rounded-bl-full opacity-60 z-0"></div>
+
+			{/* Status Badge - Mostrar si está aprobado o pendiente */}
+			<div className="absolute top-4 right-4 z-10">
+				{business.isApproved ? (
+					<span className="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200 shadow-sm">
+						Aprobado
+					</span>
+				) : (
+					<span className="px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800 border border-amber-200 shadow-sm">
+						Pendiente
+					</span>
+				)}
+			</div>
+
+			{/* Contenido principal */}
+			<div className="p-6 relative z-10">
+				{/* Header con logo y nombre */}
+				<div className="flex items-start gap-4 mb-5">
+					{/* Logo con efecto de elevación */}
+					<div className="relative flex-shrink-0">
 						{business.logoUrl ? (
-							<div className="avatar">
-								<div className="w-14 h-14 rounded-full overflow-hidden relative border border-yellow-200 flex-shrink-0">
-									<Image
-										src={business.logoUrl}
-										alt={`Logo de ${business.name}`}
-										fill
-										className="object-cover"
-									/>
-								</div>
+							<div className="w-20 h-20 rounded-xl overflow-hidden transform transition-transform group-hover:scale-105 duration-500 shadow-lg relative border-2 border-amber-300">
+								<Image
+									src={business.logoUrl}
+									alt={`Logo de ${business.name}`}
+									fill
+									className="object-cover"
+								/>
+								<div className="absolute inset-0 bg-gradient-to-tr from-black/10 to-transparent"></div>
 							</div>
 						) : (
-							<div className="avatar placeholder">
-								<div className="w-14 h-14 rounded-full bg-amber-100 text-amber-600 flex justify-center items-center flex-shrink-0">
-									<span className="text-lg font-bold">
-										{business.name.charAt(0)}
-									</span>
-								</div>
+							<div className="w-20 h-20 rounded-xl overflow-hidden bg-gradient-to-br from-amber-400 to-yellow-300 flex items-center justify-center shadow-lg transform transition-transform group-hover:scale-105 duration-500 border-2 border-amber-300">
+								<span className="text-2xl font-bold text-white">
+									{business.name.charAt(0).toUpperCase()}
+								</span>
+								<div className="absolute inset-0 bg-gradient-to-tr from-black/10 to-transparent"></div>
 							</div>
 						)}
-						<h2 className="card-title text-amber-600">{business.name}</h2>
 					</div>
-					<span className="badge bg-yellow-100 text-amber-600 border-yellow-200">
-						{BUSINESS_CATEGORIES.find((cat) => cat.id === business.category)
-							?.name || "Categoría"}
-					</span>
+
+					{/* Información del negocio */}
+					<div className="flex-1 min-w-0">
+						<h2 className="text-xl font-bold text-amber-700 leading-tight mb-1 group-hover:text-amber-600 transition-colors">
+							{business.name}
+						</h2>
+						<div className="flex items-center flex-wrap gap-2 mb-2">
+							<span className="badge bg-amber-100 text-amber-700 border-amber-200 font-medium">
+								{BUSINESS_CATEGORIES.find((cat) => cat.id === business.category)
+									?.name || "Categoría"}
+							</span>
+
+							{/* Indicadores visuales para elementos disponibles */}
+							{business.description && (
+								<span className="badge bg-blue-50 text-blue-700 border-blue-100">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										className="h-3 w-3 mr-1"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor">
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+										/>
+									</svg>
+									Descripción
+								</span>
+							)}
+
+							{business.logoUrl && (
+								<span className="badge bg-purple-50 text-purple-700 border-purple-100">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										className="h-3 w-3 mr-1"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor">
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+										/>
+									</svg>
+									Logo
+								</span>
+							)}
+						</div>
+					</div>
 				</div>
 
+				{/* Descripción con efecto de tarjeta */}
 				{business.description && (
-					<p className="text-gray-600 mt-2 text-sm line-clamp-2">
-						{business.description}
-					</p>
+					<div className="mb-5 bg-gradient-to-r from-amber-50/80 to-yellow-50/80 p-4 rounded-xl border border-amber-100/50 backdrop-blur-sm transform transition-transform group-hover:scale-[1.02] duration-500">
+						<p className="text-gray-700 text-sm leading-relaxed line-clamp-3 italic relative pl-3">
+							<span className="absolute left-0 top-0 text-amber-400 text-xl">
+								"
+							</span>
+							{business.description}
+							<span className="absolute text-amber-400 text-xl">"</span>
+						</p>
+					</div>
 				)}
 
-				<div className="grid grid-cols-1 gap-3 mt-4">
-					<div className="flex items-center text-gray-600">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							className="h-5 w-5 mr-2 text-green-500"
-							viewBox="0 0 20 20"
-							fill="currentColor">
-							<path
-								fillRule="evenodd"
-								d="M14.243 5.757a6 6 0 10-.986 9.284 1 1 0 111.087 1.678A8 8 0 1118 10a3 3 0 01-4.8 2.401A4 4 0 1114 10a1 1 0 102 0c0-1.537-.586-3.07-1.757-4.243zM12 10a2 2 0 10-4 0 2 2 0 004 0z"
-								clipRule="evenodd"
-							/>
-						</svg>
-						<span className="text-sm truncate">{business.email}</span>
-					</div>
-					<div className="flex items-center text-gray-600">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							className="h-5 w-5 mr-2 text-green-500"
-							viewBox="0 0 20 20"
-							fill="currentColor">
-							<path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-						</svg>
-						<span className="text-sm truncate">{business.whatsapp}</span>
-					</div>
-
-					{business.address && (
-						<div className="flex items-start text-gray-600">
+				{/* Información de contacto con iconos mejorados */}
+				<div className="grid grid-cols-1 gap-3 mb-5">
+					<a
+						href={`mailto:${business.email}`}
+						className="flex items-center px-4 py-3 bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 hover:border-amber-200 transform hover:-translate-y-0.5 group/item">
+						<div className="flex items-center justify-center w-10 h-10 rounded-full bg-amber-50 text-amber-500 mr-3 group-hover/item:bg-amber-100 transition-colors">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								className="h-5 w-5 mr-2 text-red-500 flex-shrink-0 mt-0.5"
+								className="h-5 w-5"
 								viewBox="0 0 20 20"
 								fill="currentColor">
-								<path
-									fillRule="evenodd"
-									d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-									clipRule="evenodd"
-								/>
+								<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+								<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
 							</svg>
-							<div className="flex flex-col">
-								<span className="text-sm leading-tight">
+						</div>
+						<div className="flex-1">
+							<p className="text-xs text-gray-500 font-medium mb-0.5">Email</p>
+							<p className="text-sm font-semibold text-gray-700 truncate group-hover/item:text-amber-700 transition-colors">
+								{business.email}
+							</p>
+						</div>
+					</a>
+
+					<a
+						href={`https://wa.me/${business.whatsapp.replace(/\D/g, "")}`}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="flex items-center px-4 py-3 bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 hover:border-green-200 transform hover:-translate-y-0.5 group/item">
+						<div className="flex items-center justify-center w-10 h-10 rounded-full bg-green-50 text-green-500 mr-3 group-hover/item:bg-green-100 transition-colors">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								className="h-5 w-5"
+								viewBox="0 0 20 20"
+								fill="currentColor">
+								<path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+							</svg>
+						</div>
+						<div className="flex-1">
+							<p className="text-xs text-gray-500 font-medium mb-0.5">
+								WhatsApp
+							</p>
+							<p className="text-sm font-semibold text-gray-700 truncate group-hover/item:text-green-700 transition-colors">
+								{business.whatsapp}
+							</p>
+						</div>
+					</a>
+
+					{business.address && (
+						<div className="flex items-start px-4 py-3 bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 hover:border-red-200 transform hover:-translate-y-0.5 group/item">
+							<div className="flex items-center justify-center w-10 h-10 rounded-full bg-red-50 text-red-500 mr-3 mt-1 group-hover/item:bg-red-100 transition-colors">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									className="h-5 w-5"
+									viewBox="0 0 20 20"
+									fill="currentColor">
+									<path
+										fillRule="evenodd"
+										d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+										clipRule="evenodd"
+									/>
+								</svg>
+							</div>
+							<div className="flex-1">
+								<p className="text-xs text-gray-500 font-medium mb-0.5">
+									Dirección
+								</p>
+								<p className="text-sm font-semibold text-gray-700 leading-tight group-hover/item:text-red-700 transition-colors">
 									{business.address}
-								</span>
+								</p>
 								{business.googleMapsUrl && (
 									<a
 										href={business.googleMapsUrl}
 										target="_blank"
 										rel="noopener noreferrer"
-										className="text-xs text-blue-500 hover:text-blue-700 hover:underline mt-1">
-										Ver en Google Maps
+										className="inline-flex items-center text-xs text-blue-500 hover:text-blue-700 mt-1 transition-colors">
+										<span>Ver en Google Maps</span>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											className="h-3 w-3 ml-1"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke="currentColor">
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												strokeWidth={2}
+												d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+											/>
+										</svg>
 									</a>
 								)}
 							</div>
@@ -122,66 +259,102 @@ const BusinessCard = ({ business, onEdit, onDelete }) => {
 					)}
 				</div>
 
-				<div className="flex mt-4 space-x-3">
-					{business.instagram && (
-						<a
-							href={business.instagram}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-pink-500 hover:text-pink-600">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								className="fill-current">
-								<path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-							</svg>
-						</a>
-					)}
-					{business.facebook && (
-						<a
-							href={business.facebook}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-blue-600 hover:text-blue-700">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								className="fill-current">
-								<path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
-							</svg>
-						</a>
-					)}
-					{business.twitter && (
-						<a
-							href={business.twitter}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-black hover:text-gray-700">
-							<svg
-								viewBox="0 0 24 24"
-								fill="currentColor"
-								width="24"
-								height="24"
-								className="fill-current">
-								<path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
-							</svg>
-						</a>
-					)}
+				{/* Redes sociales */}
+				{(business.instagram || business.facebook || business.twitter) && (
+					<div className="flex justify-center space-x-3 mb-5">
+						{business.instagram && (
+							<a
+								href={business.instagram}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 text-white shadow-md transform transition-transform hover:scale-110">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="18"
+									height="18"
+									viewBox="0 0 24 24"
+									className="fill-current">
+									<path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+								</svg>
+							</a>
+						)}
+						{business.facebook && (
+							<a
+								href={business.facebook}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-md transform transition-transform hover:scale-110">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="18"
+									height="18"
+									viewBox="0 0 24 24"
+									className="fill-current">
+									<path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
+								</svg>
+							</a>
+						)}
+						{business.twitter && (
+							<a
+								href={business.twitter}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-slate-700 to-slate-900 text-white shadow-md transform transition-transform hover:scale-110">
+								<svg
+									viewBox="0 0 24 24"
+									fill="currentColor"
+									width="18"
+									height="18"
+									className="fill-current">
+									<path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+								</svg>
+							</a>
+						)}
+					</div>
+				)}
+			</div>
+
+			{/* Barra de acciones */}
+			<div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-t border-amber-100">
+				<div className="text-xs text-gray-500">
+					Actualizado: {new Date(business.updatedAt).toLocaleDateString()}
 				</div>
 
-				<div className="card-actions justify-end mt-4 space-x-2">
+				<div className="flex space-x-2">
 					<button
 						onClick={() => onEdit(business)}
-						className="btn btn-sm bg-amber-100 hover:bg-amber-200 text-amber-700 border border-amber-200">
-						Editar Negocio
+						className="btn btn-sm bg-amber-100 hover:bg-amber-200 text-amber-700 border border-amber-200 flex items-center gap-1 shadow-sm hover:shadow transition-all">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							className="h-4 w-4"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor">
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth={2}
+								d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+							/>
+						</svg>
+						Editar
 					</button>
 					<button
 						onClick={() => onDelete(business._id)}
-						className="btn btn-sm bg-red-100 hover:bg-red-200 text-red-700 border border-red-200">
+						className="btn btn-sm bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 flex items-center gap-1 shadow-sm hover:shadow transition-all">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							className="h-4 w-4"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor">
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth={2}
+								d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+							/>
+						</svg>
 						Eliminar
 					</button>
 				</div>
@@ -912,18 +1085,35 @@ export default function Dashboard() {
 		if (businesses.length === 0) {
 			return (
 				<div className="card bg-white shadow-xl border border-yellow-100">
-					<div className="card-body text-center">
+					<div className="card-body text-center py-12">
+						<div className="flex justify-center mb-6">
+							<div className="w-24 h-24 rounded-full bg-amber-100 flex items-center justify-center">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									className="h-12 w-12 text-amber-500"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor">
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+									/>
+								</svg>
+							</div>
+						</div>
 						<h2 className="text-2xl font-bold text-gray-700 mb-4">
 							No tienes negocios registrados
 						</h2>
-						<p className="text-gray-600 mb-6">
+						<p className="text-gray-600 mb-6 max-w-lg mx-auto">
 							¡Comienza a promocionar tu negocio en nuestro directorio de
-							emprendedores latinos!
+							emprendedores latinos! Añade tu primer negocio ahora mismo.
 						</p>
 						<div className="flex justify-center">
 							<button
 								onClick={handleCreateBusiness}
-								className="btn bg-gradient-to-r from-yellow-400 to-amber-500 text-white border-0 hover:shadow-md">
+								className="btn bg-gradient-to-r from-yellow-400 to-amber-500 text-white border-0 hover:shadow-lg hover:scale-105 transition-all duration-300">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									className="h-5 w-5 mr-2"
@@ -945,11 +1135,11 @@ export default function Dashboard() {
 
 		return (
 			<div className="space-y-6">
-				<div className="flex justify-between items-center">
+				<div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
 					<h2 className="text-2xl font-bold text-gray-700">Mis Negocios</h2>
 					<button
 						onClick={handleCreateBusiness}
-						className="btn bg-gradient-to-r from-yellow-400 to-amber-500 text-white border-0 hover:shadow-md">
+						className="btn bg-gradient-to-r from-yellow-400 to-amber-500 text-white border-0 hover:shadow-lg hover:scale-105 transition-all duration-300">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							className="h-5 w-5 mr-2"
@@ -965,14 +1155,18 @@ export default function Dashboard() {
 					</button>
 				</div>
 
-				<div className="grid grid-cols-1 gap-4">
-					{businesses.map((business) => (
-						<BusinessCard
+				<div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+					{businesses.map((business, index) => (
+						<div
 							key={business._id}
-							business={business}
-							onEdit={handleEditBusiness}
-							onDelete={handleDeleteBusiness}
-						/>
+							className="animate-fadeInUp"
+							style={{ animationDelay: `${index * 0.1}s` }}>
+							<BusinessCard
+								business={business}
+								onEdit={handleEditBusiness}
+								onDelete={handleDeleteBusiness}
+							/>
+						</div>
 					))}
 				</div>
 			</div>
@@ -981,17 +1175,56 @@ export default function Dashboard() {
 
 	return (
 		<div className="min-h-screen p-8 bg-gradient-to-br from-yellow-50 to-white">
-			<div className="max-w-4xl mx-auto space-y-8">
+			{/* Añadir estilos CSS para animaciones */}
+			<style jsx global>
+				{animationStyles}
+			</style>
+
+			<div className="max-w-6xl mx-auto space-y-8">
 				{/* Encabezado */}
-				<div className="card bg-white shadow-md border border-yellow-100">
-					<div className="card-body">
-						<h1 className="text-3xl font-bold text-amber-600">
-							¡Bienvenido a tu Dashboard!
-						</h1>
-						<p className="text-gray-600">
-							Aquí puedes gestionar tus negocios en nuestro directorio de
-							emprendedores latinos.
-						</p>
+				<div className="card bg-white shadow-md border border-yellow-100 overflow-hidden">
+					<div className="card-body relative p-0">
+						<div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-amber-300/10 to-yellow-300/10 z-0"></div>
+						<div className="relative z-10 p-6">
+							<div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+								<div>
+									<h1 className="text-3xl font-bold text-amber-600 mb-2">
+										¡Bienvenido a tu Dashboard!
+									</h1>
+									<p className="text-gray-600 max-w-2xl">
+										Aquí puedes gestionar tus negocios en nuestro directorio de
+										emprendedores latinos. Añade información detallada y mantén
+										tus datos actualizados para atraer más clientes.
+									</p>
+								</div>
+								{businesses.length > 0 && (
+									<div className="stats shadow bg-white">
+										<div className="stat">
+											<div className="stat-figure text-amber-500">
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													className="h-8 w-8"
+													fill="none"
+													viewBox="0 0 24 24"
+													stroke="currentColor">
+													<path
+														strokeLinecap="round"
+														strokeLinejoin="round"
+														strokeWidth={2}
+														d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+													/>
+												</svg>
+											</div>
+											<div className="stat-title">Tus Negocios</div>
+											<div className="stat-value text-amber-600">
+												{businesses.length}
+											</div>
+											<div className="stat-desc">Listados en el Directorio</div>
+										</div>
+									</div>
+								)}
+							</div>
+						</div>
 					</div>
 				</div>
 
@@ -1001,7 +1234,7 @@ export default function Dashboard() {
 						<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-500"></div>
 					</div>
 				) : (
-					renderContent()
+					<div className="animate-fadeIn">{renderContent()}</div>
 				)}
 			</div>
 		</div>
