@@ -31,8 +31,8 @@ export default function Hero() {
 					height={100}
 					className="text-white font-serif text-2xl italic font-semibold tracking-tight"
 				/>
-				{/* Nav */}
-				<nav className="flex-1 flex items-center justify-center">
+				{/* Nav - Hidden on mobile */}
+				<nav className="hidden md:flex flex-1 items-center justify-center">
 					<ul className="flex space-x-8">
 						{navLinks.map((link) => (
 							<li key={link.name}>

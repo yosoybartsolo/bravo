@@ -36,7 +36,7 @@ const Services = () => {
 			<div className="max-w-5xl mx-auto w-full flex flex-col min-h-screen">
 				{/* Título */}
 				<header className="pt-12 pb-0 px-6">
-					<h2 className="text-black text-[4rem] md:text-8xl font-light leading-none tracking-tight">
+					<h2 className="text-black text-5xl text-5xl sm:text-6xl md:text-7xl font-light leading-none tracking-tight">
 						Servicios
 					</h2>
 				</header>
