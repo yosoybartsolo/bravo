@@ -37,7 +37,10 @@ const Footer = () => {
 					{config.socials.youtube && (
 						<a
 							href={config.socials.youtube}
-							className="text-gray-500 hover:text-[#e1313d] transition-colors">
+							className="text-gray-500 hover:text-[#e1313d] transition-colors"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="YouTube">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="24"
@@ -51,7 +54,10 @@ const Footer = () => {
 					{config.socials.facebook && (
 						<a
 							href={config.socials.facebook}
-							className="text-gray-500 hover:text-[#e1313d] transition-colors">
+							className="text-gray-500 hover:text-[#e1313d] transition-colors"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Facebook">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="24"
@@ -65,22 +71,30 @@ const Footer = () => {
 					{config.socials.whatsapp && (
 						<a
 							href={config.socials.whatsapp}
-							className="text-gray-500 hover:text-[#e1313d] transition-colors">
+							className="text-gray-500 hover:text-[#e1313d] transition-colors"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="WhatsApp">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								width="28"
-								height="28"
-								viewBox="0 2 24 24"
-								className="fill-current">
-								<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51-.173-.008-.372-.01-.571-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.1 3.2 5.077 4.363.709.306 1.262.489 1.694.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-								<path d="M12 2.004A9.994 9.994 0 0 0 2 12c0 1.77.46 3.5 1.33 5.02L2 22l5.09-1.32A9.96 9.96 0 0 0 12 22c5.514 0 10-4.486 10-10s-4.486-9.996-10-9.996zm0 17.996c-1.47 0-2.91-.4-4.15-1.15l-.3-.18-3.02.78.8-2.95-.2-.31A7.96 7.96 0 0 1 4 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z" />
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								strokeWidth="1.5"
+								className="stroke-current">
+								<path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.18-1.62A11.93 11.93 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.19-1.24-6.19-3.48-8.52zM12 22c-1.85 0-3.67-.5-5.24-1.44l-.37-.22-3.67.96.98-3.58-.24-.37A9.93 9.93 0 0 1 2 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10zm5.2-7.8c-.28-.14-1.65-.81-1.9-.9-.25-.09-.43-.14-.61.14-.18.28-.28.7.9-.86 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.25-1.4-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.54-.45-.47-.61-.48-.16-.01-.34-.01-.52-.01-.18 0-.48.07-.73.34-.25.27-.97.95-.97 2.3 0 1.35.99 2.65 1.13 2.83.14.18 1.95 2.98 4.74 4.06.66.28 1.18.45 1.58.58.66.21 1.26.18 1.73.11.53-.08 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z" />
 							</svg>
 						</a>
 					)}
 					{config.socials.instagram && (
 						<a
 							href={config.socials.instagram}
-							className="text-gray-500 hover:text-[#e1313d] transition-colors">
+							className="text-gray-500 hover:text-[#e1313d] transition-colors"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Instagram">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="24"
@@ -94,7 +108,10 @@ const Footer = () => {
 					{config.socials.linkedin && (
 						<a
 							href={config.socials.linkedin}
-							className="text-gray-500 hover:text-[#e1313d] transition-colors">
+							className="text-gray-500 hover:text-[#e1313d] transition-colors"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="LinkedIn">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="24"
@@ -108,7 +125,10 @@ const Footer = () => {
 					{config.socials.tiktok && (
 						<a
 							href={config.socials.tiktok}
-							className="text-gray-500 hover:text-[#e1313d] transition-colors">
+							className="text-gray-500 hover:text-[#e1313d] transition-colors"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="TikTok">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="24"
@@ -122,7 +142,10 @@ const Footer = () => {
 					{config.socials.github && (
 						<a
 							href={config.socials.github}
-							className="text-gray-500 hover:text-[#e1313d] transition-colors">
+							className="text-gray-500 hover:text-[#e1313d] transition-colors"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="GitHub">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="24"
@@ -136,17 +159,37 @@ const Footer = () => {
 					{config.socials.email && (
 						<a
 							href={`mailto:${config.socials.email}`}
-							className="text-gray-500 hover:text-[#e1313d] transition-colors">
+							className="text-gray-500 hover:text-[#e1313d] transition-colors"
+							aria-label="Email">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="32"
 								height="32"
 								viewBox="0 3 24 24"
-								className="fill-none stroke-current"
+								fill="none"
 								stroke="currentColor"
-								strokeWidth="1.5">
+								strokeWidth="1.5"
+								className="stroke-current">
 								<rect x="3" y="5" width="18" height="14" rx="2" />
 								<path d="M3 7l9 6 9-6" />
+							</svg>
+						</a>
+					)}
+					{config.socials.behance && (
+						<a
+							href={config.socials.behance}
+							className="text-gray-500 hover:text-[#e1313d] transition-colors"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Behance">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="currentColor"
+								className="fill-current">
+								<path d="M22.5 12.1c-.2-.5-.5-.9-.9-1.2-.4-.3-.9-.5-1.4-.6-.5-.1-1.1-.2-1.7-.2-.6 0-1.1.1-1.6.2-.5.1-.9.3-1.3.6-.4.3-.7.7-.9 1.2-.2.5-.3 1.1-.3 1.8 0 .7.1 1.3.3 1.8.2.5.5.9.9 1.2.4.3.8.5 1.3.6.5.1 1 .2 1.6.2.6 0 1.2-.1 1.7-.2.5-.1 1-.3 1.4-.6.4-.3.7-.7.9-1.2.2-.5.3-1.1.3-1.8 0-.7-.1-1.3-.3-1.8zm-1.6 2.7c-.2.3-.5.5-.8.6-.3.1-.7.2-1.1.2-.4 0-.8-.1-1.1-.2-.3-.1-.6-.3-.8-.6-.2-.3-.3-.7-.3-1.2 0-.5.1-.9.3-1.2.2-.3.5-.5.8-.6.3-.1.7-.2 1.1-.2.4 0 .8.1 1.1.2.3.1.6.3.8.6.2.3.3.7.3 1.2 0 .5-.1.9-.3 1.2zm-7.2-2.7c-.2-.5-.5-.9-.9-1.2-.4-.3-.9-.5-1.4-.6-.5-.1-1.1-.2-1.7-.2-.6 0-1.1.1-1.6.2-.5.1-.9.3-1.3.6-.4.3-.7.7-.9 1.2-.2.5-.3 1.1-.3 1.8 0 .7.1 1.3.3 1.8.2.5.5.9.9 1.2.4.3.8.5 1.3.6.5.1 1 .2 1.6.2.6 0 1.2-.1 1.7-.2.5-.1 1-.3 1.4-.6.4-.3.7-.7.9-1.2.2-.5.3-1.1.3-1.8 0-.7-.1-1.3-.3-1.8zm-1.6 2.7c-.2.3-.5.5-.8.6-.3.1-.7.2-1.1.2-.4 0-.8-.1-1.1-.2-.3-.1-.6-.3-.8-.6-.2-.3-.3-.7-.3-1.2 0-.5.1-.9.3-1.2.2-.3.5-.5.8-.6.3-.1.7-.2 1.1-.2.4 0 .8.1 1.1.2.3.1.6.3.8.6.2.3.3.7.3 1.2 0 .5-.1.9-.3 1.2zm7.2-7.1h-3.2v1.1h3.2v-1.1z" />
 							</svg>
 						</a>
 					)}

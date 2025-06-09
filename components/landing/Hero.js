@@ -1,8 +1,5 @@
 "use client";
-import config from "@/config";
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import Link from "next/link";
 
 const navLinks = [
 	{ name: "Trabajo", href: "#" },
@@ -20,7 +17,7 @@ export default function Hero() {
 				{/* Logo */}
 				<Image
 					src="/logo.png"
-					alt="Bravo"
+					alt="Logo de Bravo Studio"
 					width={100}
 					height={100}
 					className="text-white font-serif text-2xl italic font-semibold tracking-tight"

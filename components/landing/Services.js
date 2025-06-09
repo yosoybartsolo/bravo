@@ -29,14 +29,6 @@ const services = [
 	},
 ];
 
-const brandLogo = (
-	<span
-		className="font-black text-3xl tracking-widest"
-		style={{ fontFamily: "monospace" }}>
-		BRAVO
-	</span>
-);
-
 const Services = () => {
 	const [active, setActive] = useState(0);
 	return (
@@ -82,7 +74,6 @@ const Services = () => {
 							</li>
 						))}
 					</ol>
-					{/* <div className="flex-shrink-0 mt-8 md:mt-0 md:ml-12">{brandLogo}</div> */}
 				</footer>
 			</div>
 		</section>
