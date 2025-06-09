@@ -36,7 +36,7 @@ export default async function RootLayout({ children }) {
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 				<NextAuthProvider>
-					<Header />
+					{/* <Header /> */}
 					{children}
 					<Footer />
 					<Toaster
