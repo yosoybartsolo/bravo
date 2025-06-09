@@ -2,12 +2,21 @@
 import Image from "next/image";
 
 const navLinks = [
-	{ name: "Trabajo", href: "#" },
-	{ name: "Servicios", href: "#" },
-	{ name: "Boletín", href: "#" },
-	{ name: "Empleo", href: "#" },
-	{ name: "Acerca de", href: "#" },
+	{ name: "Trabajo", href: "#work" },
+	{ name: "Servicios", href: "#services" },
+	{ name: "Acerca de", href: "#about" },
 ];
+
+const handleClick = (e, href) => {
+	e.preventDefault();
+	const element = document.querySelector(href);
+	if (element) {
+		element.scrollIntoView({
+			behavior: "smooth",
+			block: "start",
+		});
+	}
+};
 
 export default function Hero() {
 	return (
@@ -29,6 +38,7 @@ export default function Hero() {
 							<li key={link.name}>
 								<a
 									href={link.href}
+									onClick={(e) => handleClick(e, link.href)}
 									className="text-white/90 font-light text-lg hover:text-[#e1313d] transition-colors">
 									{link.name}
 								</a>
@@ -39,6 +49,7 @@ export default function Hero() {
 				{/* Contact Button */}
 				<a
 					href="#contacto"
+					onClick={(e) => handleClick(e, "#contacto")}
 					className="border border-white hover:border-[#e1313d] text-white hover:text-[#e1313d] px-5 py-1.5 rounded-full text-base font-light tracking-wide transition-colors">
 					CONTACTO
 				</a>

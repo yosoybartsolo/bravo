@@ -12,10 +12,16 @@ export default function Home() {
 			<section id="about">
 				<About />
 			</section>
-			<Work />
+			<section id="work">
+				<Work />
+			</section>
 			{/* <Customers /> */}
-			<Services id="services" />
-			<CTA id="contact" />
+			<section id="services">
+				<Services />
+			</section>
+			<section id="contact">
+				<CTA />
+			</section>
 		</main>
 	);
 }
