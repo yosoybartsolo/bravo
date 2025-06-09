@@ -69,8 +69,8 @@ const Services = () => {
 									className={`w-full text-left text-lg md:text-xl font-semibold tracking-wide uppercase px-0 py-2 transition-colors duration-200
 										${
 											active === idx
-												? "text-[#e53939] bg-black"
-												: "text-black hover:text-white hover:bg-black"
+												? "text-[#e1313d] bg-[#191919]"
+												: "text-[#191919] hover:text-white hover:bg-[#191919]"
 										}
 									`}
 									style={{ outline: "none" }}>
@@ -82,7 +82,7 @@ const Services = () => {
 							</li>
 						))}
 					</ol>
-					<div className="flex-shrink-0 mt-8 md:mt-0 md:ml-12">{brandLogo}</div>
+					{/* <div className="flex-shrink-0 mt-8 md:mt-0 md:ml-12">{brandLogo}</div> */}
 				</footer>
 			</div>
 		</section>

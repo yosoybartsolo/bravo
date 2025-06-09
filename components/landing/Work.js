@@ -39,7 +39,7 @@ const projects = [
 
 const Work = () => {
 	return (
-		<section className="bg-[#232323] min-h-screen w-full px-8 py-16">
+		<section className="bg-[#191919] min-h-screen w-full px-20 py-16">
 			<div className="max-w-7xl mx-auto">
 				<div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
 					<h2 className="text-white text-7xl font-light mb-4 md:mb-0">

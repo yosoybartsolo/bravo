@@ -1,21 +1,19 @@
 import config from "@/config";
 
 const navItems = [
-	{ label: "About Us", href: "/about" },
-	{ label: "Contact", href: "/contact" },
-	{ label: "Terms of Service", href: "/tos" },
-	{ label: "Privacy Policy", href: "/privacy" },
+	{ label: "About Us", href: "#about" },
+	{ label: "Contact", href: "#contact" },
 ];
 
 const Footer = () => {
 	return (
-		<footer className="footer footer-center bg-gradient-to-br from-yellow-50 to-white text-gray-700 rounded p-10 border-t border-yellow-100">
+		<footer className="footer footer-center bg-[#191919] text-white p-10">
 			<nav className="grid grid-flow-col gap-4">
 				{navItems.map((item) => (
 					<a
 						key={item.href}
 						href={item.href}
-						className="link link-hover hover:text-amber-600 transition-colors">
+						className="link link-hover hover:text-[#e1313d] transition-colors">
 						{item.label}
 					</a>
 				))}
@@ -25,7 +23,7 @@ const Footer = () => {
 					{config.socials.twitter && (
 						<a
 							href={config.socials.twitter}
-							className="text-gray-500 hover:text-amber-500 transition-colors">
+							className="text-gray-500 hover:text-[#e1313d] transition-colors">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="24"
@@ -39,7 +37,7 @@ const Footer = () => {
 					{config.socials.youtube && (
 						<a
 							href={config.socials.youtube}
-							className="text-gray-500 hover:text-amber-500 transition-colors">
+							className="text-gray-500 hover:text-[#e1313d] transition-colors">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="24"
@@ -53,7 +51,7 @@ const Footer = () => {
 					{config.socials.facebook && (
 						<a
 							href={config.socials.facebook}
-							className="text-gray-500 hover:text-amber-500 transition-colors">
+							className="text-gray-500 hover:text-[#e1313d] transition-colors">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="24"
@@ -64,10 +62,25 @@ const Footer = () => {
 							</svg>
 						</a>
 					)}
+					{config.socials.whatsapp && (
+						<a
+							href={config.socials.whatsapp}
+							className="text-gray-500 hover:text-[#e1313d] transition-colors">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="28"
+								height="28"
+								viewBox="0 2 24 24"
+								className="fill-current">
+								<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51-.173-.008-.372-.01-.571-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.1 3.2 5.077 4.363.709.306 1.262.489 1.694.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+								<path d="M12 2.004A9.994 9.994 0 0 0 2 12c0 1.77.46 3.5 1.33 5.02L2 22l5.09-1.32A9.96 9.96 0 0 0 12 22c5.514 0 10-4.486 10-10s-4.486-9.996-10-9.996zm0 17.996c-1.47 0-2.91-.4-4.15-1.15l-.3-.18-3.02.78.8-2.95-.2-.31A7.96 7.96 0 0 1 4 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z" />
+							</svg>
+						</a>
+					)}
 					{config.socials.instagram && (
 						<a
 							href={config.socials.instagram}
-							className="text-gray-500 hover:text-amber-500 transition-colors">
+							className="text-gray-500 hover:text-[#e1313d] transition-colors">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="24"
@@ -81,7 +94,7 @@ const Footer = () => {
 					{config.socials.linkedin && (
 						<a
 							href={config.socials.linkedin}
-							className="text-gray-500 hover:text-amber-500 transition-colors">
+							className="text-gray-500 hover:text-[#e1313d] transition-colors">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="24"
@@ -95,7 +108,7 @@ const Footer = () => {
 					{config.socials.tiktok && (
 						<a
 							href={config.socials.tiktok}
-							className="text-gray-500 hover:text-amber-500 transition-colors">
+							className="text-gray-500 hover:text-[#e1313d] transition-colors">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="24"
@@ -109,7 +122,7 @@ const Footer = () => {
 					{config.socials.github && (
 						<a
 							href={config.socials.github}
-							className="text-gray-500 hover:text-amber-500 transition-colors">
+							className="text-gray-500 hover:text-[#e1313d] transition-colors">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="24"
@@ -120,10 +133,27 @@ const Footer = () => {
 							</svg>
 						</a>
 					)}
+					{config.socials.email && (
+						<a
+							href={`mailto:${config.socials.email}`}
+							className="text-gray-500 hover:text-[#e1313d] transition-colors">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="32"
+								height="32"
+								viewBox="0 3 24 24"
+								className="fill-none stroke-current"
+								stroke="currentColor"
+								strokeWidth="1.5">
+								<rect x="3" y="5" width="18" height="14" rx="2" />
+								<path d="M3 7l9 6 9-6" />
+							</svg>
+						</a>
+					)}
 				</div>
 			</nav>
 			<aside>
-				<p className="text-amber-600 font-medium">
+				<p className="text-[#e1313d] font-medium">
 					Copyright © {new Date().getFullYear()} - All right reserved by{" "}
 					<span className="font-bold">{config.appName}</span>
 				</p>

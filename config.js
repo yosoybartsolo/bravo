@@ -1,22 +1,19 @@
 const config = {
 	// REQUIRED
-	appName: "Sección Latina",
+	appName: "Bravo",
 	// REQUIRED: a short description of your app for SEO tags (can be overwritten)
-	appDescription: "Directorio de emprendedores latinos en Texas ⭐️",
+	appDescription: "Studio creativo, diseño y desarrollo web",
 	// REQUIRED (no https://, not trialing slash at the end, just the naked domain)
-	domainName: "seccionlatina.org",
+	domainName: "bravo.studio",
 	email: {
-		supportEmail: "yosoybartsolo@gmail.com",
-		noReplyEmail: "no-reply@seccionlatina.org",
+		supportEmail: "holabravocreatives@gmail.com",
+		noReplyEmail: "no-reply@bravo.studio",
 	},
 	socials: {
-		twitter: "https://twitter.com/escuelitamaker",
-		youtube: "https://www.youtube.com/@escuelitamaker",
-		facebook: "https://www.facebook.com/escuelitamaker",
-		instagram: "https://www.instagram.com/escuelitamaker",
-		linkedin: "https://www.linkedin.com/company/escuelitamaker",
-		tiktok: "https://www.tiktok.com/@escuelita.maker",
-		github: "https://github.com/escuelitamaker",
+		whatsapp: "https://wa.me/17375870467",
+		instagram: "https://www.instagram.com/bravocreatives_",
+		behance: "https://www.behance.net/bravocreatives",
+		email: "holabravocreatives@gmail.com",
 	},
 	auth: {
 		// REQUIRED — the path to log in users. It's use to protect private routes (like /dashboard). It's used in apiClient (/libs/api.js) upon 401 errors from our API

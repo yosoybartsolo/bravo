@@ -14,7 +14,7 @@ const navLinks = [
 
 export default function Hero() {
 	return (
-		<section className="bg-[#232323] min-h-screen flex flex-col">
+		<section className="bg-[#191919] min-h-screen flex flex-col">
 			{/* Header */}
 			<header className="flex items-center justify-between px-8 pt-6 max-w-7xl mx-auto w-full">
 				{/* Logo */}
