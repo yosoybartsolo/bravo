@@ -48,8 +48,7 @@ export default function Hero() {
 				</nav>
 				{/* Contact Button */}
 				<a
-					href="#contacto"
-					onClick={(e) => handleClick(e, "#contacto")}
+					href="https://wa.me/17375870467"
 					className="border border-white hover:border-[#e1313d] text-white hover:text-[#e1313d] px-5 py-1.5 rounded-full text-base font-light tracking-wide transition-colors">
 					CONTACTO
 				</a>
