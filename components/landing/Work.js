@@ -81,7 +81,7 @@ const Work = () => {
 			<div className="flex justify-center mt-12">
 				<a
 					href="https://www.behance.net/bravocreatives"
-					className="w-64 inline-block text-white text-center text-lg md:text-xl font-semibold uppercase tracking-widest px-10 py-4  shadow-lg transition-colors duration-200 hover:bg-[#191919]/10 hover:text-[#e1313d] border-2 border-white hover:border-[#e1313d]  px-auto">
+					className="w-64 inline-block text-white text-center text-lg md:text-xl font-semibold uppercase tracking-widest px-10 py-4  shadow-lg transition-colors duration-200 hover:bg-[#191919]/10 hover:text-[#e1313d] border border-white hover:border-[#e1313d]  px-auto">
 					Ver más
 				</a>
 			</div>
