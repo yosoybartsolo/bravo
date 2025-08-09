@@ -1,43 +1,19 @@
 "use client";
 import { useState } from "react";
-
-const services = [
-	{
-		name: "BRANDING ESTRATÉGICO",
-		description:
-			"Construimos marcas sólidas y memorables que conectan con tu audiencia y diferencian tu negocio en el mercado.",
-	},
-	{
-		name: "DISEÑO DE LOGOTIPO E IDENTIDAD VISUAL",
-		description:
-			"Creamos logotipos e identidades visuales coherentes, funcionales y distintivas para tu marca.",
-	},
-	{
-		name: "FOTOGRAFÍA PROFESIONAL",
-		description:
-			"Capturamos la esencia de tu marca y productos con fotografía profesional de alta calidad.",
-	},
-	{
-		name: "DISEÑO Y DESARROLLO WEB / SOFTWARE",
-		description:
-			"Desarrollamos sitios web y software a medida, funcionales, modernos y alineados a tus objetivos.",
-	},
-	{
-		name: "DISEÑO Y DESARROLLO APPS Y WEBAPPS",
-		description:
-			"Creamos aplicaciones y webapps intuitivas, escalables y atractivas para potenciar tu negocio.",
-	},
-];
+import { useI18n } from "@/libs/i18n";
 
 const Services = () => {
 	const [active, setActive] = useState(0);
+	const { t } = useI18n();
+	const services = t("services.list");
+	
 	return (
 		<section className="min-h-screen w-full bg-[#e1313d] flex flex-col justify-between px-0 py-0">
 			<div className="max-w-5xl mx-auto w-full flex flex-col min-h-screen">
 				{/* Título */}
 				<header className="pt-12 pb-0 px-6">
 					<h2 className="text-black text-5xl text-5xl sm:text-6xl md:text-7xl font-light leading-none tracking-tight">
-						Servicios
+						{t("services.title")}
 					</h2>
 				</header>
 				{/* Contenido principal */}

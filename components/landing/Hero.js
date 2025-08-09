@@ -1,12 +1,8 @@
 "use client";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-
-const navLinks = [
-	{ name: "Trabajo", href: "#work" },
-	{ name: "Servicios", href: "#services" },
-	{ name: "Acerca de", href: "#about" },
-];
+import { useI18n } from "@/libs/i18n";
+import LanguageSwitcher from "@/components/common/LanguageSwitcher";
 
 const carouselImages = [
 	"/images/carousel/carrusel-1.png",
@@ -36,17 +32,24 @@ const handleClick = (e, href) => {
 
 export default function Hero() {
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
+	const { t } = useI18n();
 
-	// Cambiar imagen automáticamente cada 5 segundos
+	// Cambiar imagen automáticamente cada 12 segundos
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setCurrentImageIndex(
 				(prevIndex) => (prevIndex + 1) % carouselImages.length
 			);
-		}, 5000);
+		}, 12000);
 
 		return () => clearInterval(interval);
 	}, []);
+
+	const navLinks = [
+		{ name: t("nav.work"), href: "#work" },
+		{ name: t("nav.services"), href: "#services" },
+		{ name: t("nav.about"), href: "#about" },
+	];
 
 	return (
 		<section className="bg-[#191919] min-h-screen flex flex-col">
@@ -75,21 +78,25 @@ export default function Hero() {
 						))}
 					</ul>
 				</nav>
+				{/* Language Switcher */}
+				<div className="hidden md:block mr-4">
+					<LanguageSwitcher />
+				</div>
 				{/* Contact Button */}
 				<a
 					href="https://wa.me/17375870467"
 					className="border border-white hover:border-[#e1313d] text-white hover:text-[#e1313d] px-5 py-1.5 rounded-full text-base font-light tracking-wide transition-colors">
-					CONTACTO
+					{t("nav.contact")}
 				</a>
 			</header>
 
 			{/* Main Content */}
 			<div className="flex flex-col max-w-5xl w-full mx-auto px-8 mt-20">
 				<h1 className="text-white text-5xl sm:text-6xl md:text-7xl font-light leading-tight mb-6 text-left">
-					Estrategia y diseño
+					{t("hero.title")} 
 				</h1>
 				<p className="text-gray-300 text-lg font-light mb-12 text-left max-w-xl">
-					Pam es una multidisciplinaria empresa de diseño.
+					{t("hero.subtitle")} 
 				</p>
 				<div className="w-full overflow-hidden bg-[#232323] border border-[#2e2e2e] relative">
 					{/* Carrusel de imágenes */}
@@ -97,7 +104,7 @@ export default function Hero() {
 						{carouselImages.map((image, index) => (
 							<div
 								key={index}
-								className={`absolute inset-0 transition-opacity duration-1000 ${
+								className={`absolute inset-0 transition-opacity duration-[6000ms] ease-in-out ${
 									index === currentImageIndex ? "opacity-100" : "opacity-0"
 								}`}>
 								<Image

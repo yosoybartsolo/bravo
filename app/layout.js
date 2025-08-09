@@ -6,6 +6,7 @@ import connectDB from "@/libs/mongoose";
 import config from "@/config";
 import { NextAuthProvider } from "@/components/NextAuthProvider";
 import { Toaster } from "react-hot-toast";
+import I18nWrapper from "@/components/I18nWrapper";
 
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",
@@ -35,34 +36,36 @@ export default async function RootLayout({ children }) {
 		<html lang="en">
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<NextAuthProvider>
-					{/* <Header /> */}
-					{children}
-					<Footer />
-					<Toaster
-						position="top-right"
-						toastOptions={{
-							duration: 3000,
-							style: {
-								background: "#FFFFFF",
-								color: "#374151",
-								border: "1px solid #FDE68A",
-							},
-							success: {
-								iconTheme: {
-									primary: "#10B981",
-									secondary: "#FFFFFF",
+				<I18nWrapper>
+					<NextAuthProvider>
+						{/* <Header /> */}
+						{children}
+						<Footer />
+						<Toaster
+							position="top-right"
+							toastOptions={{
+								duration: 3000,
+								style: {
+									background: "#FFFFFF",
+									color: "#374151",
+									border: "1px solid #FDE68A",
 								},
-							},
-							error: {
-								iconTheme: {
-									primary: "#EF4444",
-									secondary: "#FFFFFF",
+								success: {
+									iconTheme: {
+										primary: "#10B981",
+										secondary: "#FFFFFF",
+									},
 								},
-							},
-						}}
-					/>
-				</NextAuthProvider>
+								error: {
+									iconTheme: {
+										primary: "#EF4444",
+										secondary: "#FFFFFF",
+									},
+								},
+							}}
+						/>
+					</NextAuthProvider>
+				</I18nWrapper>
 			</body>
 		</html>
 	);
