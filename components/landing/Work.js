@@ -1,41 +1,64 @@
 const projects = [
 	{
-		title: "vers",
+		title: "Recreation",
 		category: "branding",
-		image:
-			"https://assets-global.website-files.com/5f6b7b6b6b6b6b6b6b6b6b6b/63e3b6b6b6b6b6b6b6b6b6b6_vers.png",
+		image: "/images/work/recreation.png",
+		link: "https://www.behance.net/gallery/172291949/Recreation-Branding",
 	},
 	{
-		title: "Mobilis",
-		category: "website",
-		image:
-			"https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80",
-	},
-	{
-		title: "Pam Studio",
+		title: "volada",
 		category: "branding",
-		image:
-			"https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80",
+		image: "/images/work/volada.png",
+		link: "https://www.behance.net/gallery/211424579/Volada",
 	},
 	{
-		title: "Fresh App",
+		title: "El Huarache",
+		category: "website/branding",
+		image: "/images/work/el-huarache.png",
+		link: "https://www.behance.net/gallery/228995091/El-Huarache-Restaurant",
+	},
+	{
+		title: "Oh My Guest!",
 		category: "website",
-		image:
-			"https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
+		image: "/images/work/ohmyguest.png",
+		link: "https://www.behance.net/gallery/231448817/Oh-My-Guest",
 	},
 	{
-		title: "Denim",
-		category: "fotografía / editorial",
-		image:
-			"https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=600&q=80",
+		title: "Travel It",
+		category: "website/branding",
+		image: "/images/work/travel-it.png",
+		link: "https://www.behance.net/gallery/229848337/Travel-It-Agencia-de-Viajes",
+	},
+
+	{
+		title: "Recreation Photo",
+		category: "photo",
+		image: "/images/work/recreation-photo.png",
+		link: "https://www.behance.net/gallery/207691423/Recreation",
 	},
 	{
-		title: "Minimal",
-		category: "editorial",
-		image:
-			"https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80",
+		title: "Qué hacer en austin",
+		category: "branding",
+		image: "/images/work/quehacerenaustin.png",
+		link: "https://www.behance.net/gallery/229499095/Que-Hacer-en-Austin",
+	},
+
+	{
+		title: "Discodome",
+		category: "photo",
+		image: "/images/work/discodome.png",
+		link: "https://www.behance.net/gallery/228816233/Disco-Ranch",
+	},
+	{
+		title: "Ramen del Barrio",
+		category: "branding",
+		image: "/images/work/ramen-del-barrio.png",
+		link: "https://www.behance.net/gallery/228819197/Ramen-Del-Barrio",
 	},
 ];
+
+import Image from "next/image";
+import Link from "next/link";
 
 const Work = () => {
 	return (
@@ -59,21 +82,25 @@ const Work = () => {
 						<div
 							key={idx}
 							className="bg-[#232323] shadow-lg overflow-hidden flex flex-col border border-[#2e2e2e]">
-							<div className="w-full aspect-[4/3] bg-gray-800 overflow-hidden">
-								<img
-									src={project.image}
-									alt={project.title}
-									className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-								/>
-							</div>
-							<div className="p-5 flex flex-col gap-1">
-								<h3 className="text-white text-xl font-semibold">
-									{project.title}
-								</h3>
-								<p className="text-gray-400 text-base capitalize">
-									{project.category}
-								</p>
-							</div>
+							<Link href={project.link} target="_blank">
+								<div className="w-full aspect-[4/3] bg-gray-800 overflow-hidden">
+									<Image
+										src={project.image}
+										alt={project.title}
+										width={600}
+										height={450}
+										className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+									/>
+								</div>
+								<div className="p-5 flex flex-col gap-1">
+									<h3 className="text-white text-xl font-semibold">
+										{project.title}
+									</h3>
+									<p className="text-gray-400 text-base capitalize">
+										{project.category}
+									</p>
+								</div>
+							</Link>
 						</div>
 					))}
 				</div>
