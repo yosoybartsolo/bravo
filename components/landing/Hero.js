@@ -84,7 +84,7 @@ export default function Hero() {
 				</div>
 				{/* Contact Button */}
 				<a
-					href="https://wa.me/17375870467"
+					href="/landing/contact"
 					className="border border-white hover:border-[#e1313d] text-white hover:text-[#e1313d] px-5 py-1.5 rounded-full text-base font-light tracking-wide transition-colors">
 					{t("nav.contact")}
 				</a>
