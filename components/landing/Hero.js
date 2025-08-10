@@ -93,10 +93,10 @@ export default function Hero() {
 			{/* Main Content */}
 			<div className="flex flex-col max-w-5xl w-full mx-auto px-8 mt-20">
 				<h1 className="text-white text-5xl sm:text-6xl md:text-7xl font-light leading-tight mb-6 text-left">
-					{t("hero.title")} 
+					{t("hero.title")}
 				</h1>
 				<p className="text-gray-300 text-lg font-light mb-12 text-left max-w-xl">
-					{t("hero.subtitle")} 
+					{t("hero.subtitle")}
 				</p>
 				<div className="w-full overflow-hidden bg-[#232323] border border-[#2e2e2e] relative">
 					{/* Carrusel de imágenes */}
@@ -118,21 +118,6 @@ export default function Hero() {
 							</div>
 						))}
 					</div>
-					{/* Indicadores de navegación
-					<div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-						{carouselImages.map((_, index) => (
-							<button
-								key={index}
-								onClick={() => setCurrentImageIndex(index)}
-								className={`w-3 h-3 rounded-full transition-all duration-300 ${
-									index === currentImageIndex
-										? "bg-[#e1313d] scale-110"
-										: "bg-white/50 hover:bg-white/70"
-								}`}
-								aria-label={`Ir a imagen ${index + 1}`}
-							/>
-						))}
-					</div> */}
 				</div>
 			</div>
 		</section>

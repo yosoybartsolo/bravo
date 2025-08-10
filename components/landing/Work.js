@@ -31,7 +31,6 @@ const projects = [
 		image: "/images/work/travel-it.png",
 		link: "https://www.behance.net/gallery/229848337/Travel-It-Agencia-de-Viajes",
 	},
-
 	{
 		title: "Recreation Photo",
 		category: "photo",
@@ -44,7 +43,6 @@ const projects = [
 		image: "/images/work/quehacerenaustin.png",
 		link: "https://www.behance.net/gallery/229499095/Que-Hacer-en-Austin",
 	},
-
 	{
 		title: "Discodome",
 		category: "photo",
@@ -75,7 +73,7 @@ const Work = () => {
 					</h2>
 					<div className="flex items-center gap-4">
 						<p className="text-gray-200 text-lg max-w-md">
-							{t("work.description")} 
+							{t("work.description")}
 						</p>
 						<span className="w-4 h-4 bg-white rounded-full inline-block ml-4"></span>
 					</div>

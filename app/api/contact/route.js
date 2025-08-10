@@ -2,12 +2,10 @@ import { NextResponse } from "next/server";
 import config from "@/config";
 
 // Conditional Resend import - will work once Node.js is updated and Resend is installed
-let Resend;
 let resend;
 
 try {
-  const ResendModule = require("resend");
-  Resend = ResendModule.Resend;
+  const { Resend } = require("resend");
   resend = new Resend(process.env.RESEND_API_KEY);
 } catch (error) {
   console.log("Resend not available yet. Install it after updating Node.js to >=18.17.0");
