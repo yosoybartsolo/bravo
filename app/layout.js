@@ -1,5 +1,4 @@
 import localFont from "next/font/local";
-import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import "./globals.css";
 import connectDB from "@/libs/mongoose";

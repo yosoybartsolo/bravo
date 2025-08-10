@@ -3,7 +3,6 @@ import Work from "@/components/landing/Work";
 import Services from "@/components/landing/Services";
 import CTA from "@/components/landing/CTA";
 import About from "@/components/landing/About";
-import Customers from "@/components/landing/Customers";
 
 export default function Home() {
 	return (
