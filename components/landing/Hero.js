@@ -34,13 +34,13 @@ export default function Hero() {
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
 	const { t } = useI18n();
 
-	// Cambiar imagen automáticamente cada 12 segundos
+	// image duration 5 seconds
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setCurrentImageIndex(
 				(prevIndex) => (prevIndex + 1) % carouselImages.length
 			);
-		}, 12000);
+		}, 5000);
 
 		return () => clearInterval(interval);
 	}, []);
@@ -79,7 +79,7 @@ export default function Hero() {
 					</ul>
 				</nav>
 				{/* Language Switcher */}
-				<div className="hidden md:block mr-4">
+				<div className="mr-1 ml-3 md:mr-4">
 					<LanguageSwitcher />
 				</div>
 				{/* Contact Button */}
@@ -104,7 +104,7 @@ export default function Hero() {
 						{carouselImages.map((image, index) => (
 							<div
 								key={index}
-								className={`absolute inset-0 transition-opacity duration-[6000ms] ease-in-out ${
+								className={`absolute inset-0 transition-opacity duration-[5000ms] ease-in-out ${
 									index === currentImageIndex ? "opacity-100" : "opacity-0"
 								}`}>
 								<Image

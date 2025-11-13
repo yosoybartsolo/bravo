@@ -2,7 +2,7 @@ import config from "@/config";
 
 const navItems = [
 	{ label: "About Us", href: "#about" },
-	{ label: "Contact", href: "#contact" },
+	{ label: "Contact", href: "/landing/contact" },
 ];
 
 const Footer = () => {

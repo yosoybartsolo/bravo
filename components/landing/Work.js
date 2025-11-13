@@ -8,8 +8,8 @@ const projects = [
 		link: "https://www.behance.net/gallery/172291949/Recreation-Branding",
 	},
 	{
-		title: "volada",
-		category: "branding",
+		title: "Volada",
+		category: "photography",
 		image: "/images/work/volada.png",
 		link: "https://www.behance.net/gallery/211424579/Volada",
 	},
@@ -21,7 +21,7 @@ const projects = [
 	},
 	{
 		title: "Oh My Guest!",
-		category: "website",
+		category: "website/branding",
 		image: "/images/work/ohmyguest.png",
 		link: "https://www.behance.net/gallery/231448817/Oh-My-Guest",
 	},
@@ -33,7 +33,7 @@ const projects = [
 	},
 	{
 		title: "Recreation Photo",
-		category: "photo",
+		category: "photography",
 		image: "/images/work/recreation-photo.png",
 		link: "https://www.behance.net/gallery/207691423/Recreation",
 	},
@@ -45,13 +45,13 @@ const projects = [
 	},
 	{
 		title: "Discodome",
-		category: "photo",
+		category: "photography",
 		image: "/images/work/discodome.png",
 		link: "https://www.behance.net/gallery/228816233/Disco-Ranch",
 	},
 	{
 		title: "Ramen del Barrio",
-		category: "branding",
+		category: "branding/photography",
 		image: "/images/work/ramen-del-barrio.png",
 		link: "https://www.behance.net/gallery/228819197/Ramen-Del-Barrio",
 	},
@@ -63,12 +63,12 @@ import { useI18n } from "@/libs/i18n";
 
 const Work = () => {
 	const { t } = useI18n();
-	
+
 	return (
 		<section className="bg-[#191919] min-h-screen w-full px-6 md:px-20 py-16">
 			<div className="max-w-7xl mx-auto">
 				<div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
-					<h2 className="text-white text-5xl sm:text-6xl md:text-7xl font-light mb-4 md:mb-0">
+					<h2 className="text-white text-5xl sm:text-6xl md:text-7xl font-light mb-4 md:mb-11">
 						{t("work.title")}
 					</h2>
 					<div className="flex items-center gap-4">
