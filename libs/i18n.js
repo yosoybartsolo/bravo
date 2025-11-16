@@ -102,9 +102,8 @@ export const translations = {
 			submitButton: "Enviar mensaje",
 			submitting: "Enviando...",
 			directContact: {
-				title: "¿Prefieres contactarnos directamente?",
-				description:
-					"También puedes escribirnos directamente o seguirnos en nuestras redes sociales",
+				title: "¿Prefieres contactarnos por otro medio?",
+				description: "Envía mensaje y síguenos en nuestras redes sociales",
 			},
 			validation: {
 				fullNameRequired: "El nombre completo es requerido",
